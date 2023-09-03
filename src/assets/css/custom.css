@@ -1,0 +1,47 @@
+.main {
+    width: 100%;
+    height: 30rem;
+    position: fixed;
+    left: 50%;
+    bottom: 50%;
+    transform: translate(-50%, 50%);
+}
+
+@media (min-width:755px) {
+    .main {
+        width: 60rem;
+    }
+}
+
+.bg-gradiant {
+    background-image: linear-gradient(to right top, #ffffff, #d8ccff, #b598ff, #9561f8, #7612eb);
+}
+
+
+.logo {
+    animation: logo-spin infinite 3s linear;
+  }
+  
+  @keyframes logo-spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+
+  
+
+.avatar-custom{
+    width: 6rem
+}
+
+@media (min-width:985px) {
+    .avatar-custom {
+        width: 13rem;
+    }
+}
+
+
