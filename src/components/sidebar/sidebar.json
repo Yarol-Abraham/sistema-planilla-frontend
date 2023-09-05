@@ -1,6 +1,6 @@
 [
     {
-      "title": "Dashboard",
+      "title": "Parametros Generales",
       "is_heading": true,
       "is_active": false,
       "class_name": "",
@@ -8,7 +8,7 @@
       "icon": ""
     },
     {
-      "title": "Empleados",
+      "title": "Usuarios",
       "name": "dashboard-1",
       "is_heading": false,
       "is_active": false,
@@ -18,7 +18,7 @@
       "icon": "ri-group-fill"
     },
     {
-      "title": "Usuarios",
+      "title": "Planilla",
       "name": "dashboard-2",
       "is_heading": false,
       "is_active": false,

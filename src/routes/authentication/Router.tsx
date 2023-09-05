@@ -1,9 +1,9 @@
 import { Routes, Route } from 'react-router-dom';
-import Login from '../pages/authentication/Login';
-import ResetPassword from '../pages/authentication/ResetPassword';
-import NotFound from '../pages/notFound/NotFound';
-import Role from '../pages/authentication/Role';
-import ConfirmMail from '../pages/authentication/ConfirmMail';
+import Login from '../../pages/authentication/Login';
+import ResetPassword from '../../pages/authentication/ResetPassword';
+import NotFound from '../../pages/notFound/NotFound';
+import Role from '../../pages/authentication/Role';
+import ConfirmMail from '../../pages/authentication/ConfirmMail';
 
 export default function AuthenticationRouter() 
 {

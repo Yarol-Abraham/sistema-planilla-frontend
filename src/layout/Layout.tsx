@@ -73,7 +73,7 @@ const Layout: React.FunctionComponent<ILayoutProps> = (props:ILayoutProps) => {
                                             </div>
                                             <div className=" ml-3">
                                                 <h6 className="mb-0 ">Mi Perfil</h6>
-                                                <p className="mb-0 font-size-12">Ver detalles de la cuenta.</p>
+                                                <p className="mb-0 font-size-12">Modificar detalles de la cuenta.</p>
                                             </div>
                                         </div>
                                     </a>
@@ -83,8 +83,8 @@ const Layout: React.FunctionComponent<ILayoutProps> = (props:ILayoutProps) => {
                                                 <i className="ri-profile-line"></i>
                                             </div>
                                             <div className=" ml-3">
-                                                <h6 className="mb-0 ">Editar Perfil</h6>
-                                                <p className="mb-0 font-size-12">Modificar detalles de mi cuenta.</p>
+                                                <h6 className="mb-0 ">Configuraciones</h6>
+                                                <p className="mb-0 font-size-12">Modificar detalles de seguridad.</p>
                                             </div>
                                         </div>
                                     </a>
@@ -100,8 +100,7 @@ const Layout: React.FunctionComponent<ILayoutProps> = (props:ILayoutProps) => {
             </NavbarLayout>
 
             <div id="content-page" className={"content-page"}>
-                <div className="container-fluid">
-
+                <div className="container-fluid px-2">
                 <TransitionGroup>
                     <CSSTransition
                         classNames="dialog"
