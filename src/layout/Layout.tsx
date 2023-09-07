@@ -53,7 +53,7 @@ const Layout: React.FunctionComponent<ILayoutProps> = (props:ILayoutProps) => {
                             className="avatar-custom search-toggle iq-waves-effect d-flex align-items-center justify-content-between bg-primary rounded"
                             onClick={toggleProfile}
                         >
-                            <img src={"/src/assets/images/1.jpg"} className="img-fluid rounded mr-3" alt="user" />
+                            <img src={"/src/assets/images/usuario_create.png"} className="img-fluid rounded mr-3" alt="user" />
                             <div className="caption">
                                 <h6 className="mb-0 line-height text-white">Yarol Abraham</h6>
                                 <span className="font-size-12 text-white">Administrador</span>
