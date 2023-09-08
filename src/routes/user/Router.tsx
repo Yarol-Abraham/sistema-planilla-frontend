@@ -1,11 +1,13 @@
 import { Routes, Route } from 'react-router-dom';
-import Create from '../../pages/user/Create';
+import User from '../../pages/user/Index';
+import NotFound from '../../pages/notFound/NotFound';
 
 export default function UserRouter() 
 {
   return (
     <Routes>
-      <Route path='create' element={<Create /> } />
+      <Route path='/' element={<User /> } />
+      <Route path='*' element={<NotFound /> } />
     </Routes>
   );
 }
