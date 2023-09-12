@@ -1,6 +1,6 @@
 [
     {
-      "title": "Parametros Generales",
+      "title": "Menú de Opciones",
       "is_heading": true,
       "is_active": false,
       "class_name": "",
@@ -9,16 +9,26 @@
     },
     {
       "title": "Usuarios",
-      "name": "dashboard-1",
+      "name": "/user",
       "is_heading": false,
       "is_active": false,
-      "link": "",
+      "link": "/user",
       "class_name": "",
       "is_icon_class": true,
       "icon": "ri-group-fill"
     },
     {
-      "title": "Planilla",
+      "title": "Roles",
+      "name": "dashboard-2",
+      "is_heading": false,
+      "is_active": false,
+      "link": "/role",
+      "class_name": "",
+      "is_icon_class": true,
+      "icon": "ri-contacts-line"
+    },
+    {
+      "title": "Permisos",
       "name": "dashboard-2",
       "is_heading": false,
       "is_active": false,

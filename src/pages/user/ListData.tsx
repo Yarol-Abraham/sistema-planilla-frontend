@@ -14,7 +14,6 @@ type TableHeader = TableColumn<DataColum>[];
 
 const ListData: FunctionComponent<{}> = () => 
 {
-
     
     const [ headers, setHeaders ] = useState<TableHeader>( [
         {
@@ -109,7 +108,6 @@ const ListData: FunctionComponent<{}> = () =>
     ]      
     )
  
-    
     const [ isOpen, setisOpen ] = useState(false);
     const toggle = ()=> setisOpen(!isOpen);
 
