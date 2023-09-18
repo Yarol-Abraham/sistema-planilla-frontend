@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { 
     Button,
@@ -12,11 +11,11 @@ import {
 
 // components
 import Layout from '../../layout/Layout';
-import CreateModal from "../../components/user/Modal";
+import CreateModal from "../../components/Modulo/Modal";
 import ListData from './ListData';
 
 // interfaces
-import { MODE_ACTION } from '../../models/user/CreateModal';
+import { MODE_ACTION } from '../../models/modulo/CreateModal';
 
 import DateRangePicker from '@wojtekmaj/react-daterange-picker';
 
@@ -28,7 +27,7 @@ type ValuePiece = Date | null;
 type Value = ValuePiece | [ValuePiece, ValuePiece];
 
 
-export default function User() 
+export default function modulo() 
 {
 
     const [ isOpen, setisOpen ] = useState(false);
@@ -37,15 +36,18 @@ export default function User()
        
     const [value, onChange] = useState<Value>([new Date(), new Date()]);
 
+
+
+
     return (
         <>
             <Layout>
                 <Container>
-                   <Row>
+                    <Row>
                         <Col lg={12}>
                             <Card className={"iq-card custom-zindex"}>
                                 <CardHeader>
-                                <h3 className='mx-2 fw-bold'>Usuarios</h3>
+                                <h3 className='mx-2 fw-bold'>Modulo</h3>
                                 </CardHeader>
                                 <CardBody className={"iq-card-body "}>
                                     <div className="d-flex justify-content-between align-items-center flex-wrap flex-column-reverse flex-md-row mb-2 ">
@@ -53,7 +55,8 @@ export default function User()
                                         <Col className='iq-todo-page col-12 col-md-8 col-lg-6'>
                                         <form className="position-relative">
                                             <div className="form-group mb-0">
-                                                <input type="text" className="form-control todo-search" id="exampleInputEmail002"  placeholder="Search" />
+                                                <input type="text" className="form-control todo-search" id="exampleInputEmail002"  placeholder="Search"
+                                                />
                                                 <a className="search-link" href="#"><i className="ri-search-line"></i></a>
                                             </div>
                                         </form>
@@ -63,7 +66,7 @@ export default function User()
                                         <Col  className={"d-flex justify-content-end mb-2 mb-md-0 col-12 col-md-4 col-lg-6"}>
                                             <div className=" todo-notification d-flex align-items-center">
                                             <button type="button" className="btn iq-bg-primary iq-waves-effect btn-lg" onClick={toggle} >
-                                                    Agregar Usuario
+                                                    Nuevo Modulo
                                                 </button>
                                             </div>
                                         </Col>
@@ -84,7 +87,7 @@ export default function User()
                                             </Input>
                                         </Col>
                                         <Col>
-                                            <Button color="dark" className='mx-2'   style={{height: '41px' }} >Filtrar</Button>{' '}
+                                       <Button color="dark" className='mx-2'   style={{height: '41px' }} >Filtrar</Button>{' '}
                                         </Col>
                                     </div>
                                 </CardBody>
@@ -94,9 +97,10 @@ export default function User()
                     </Row>
                     <Row>
                         <ListData />
-                    </Row> 
+                    </Row>
                 </Container>    
             </Layout>
         </>
-    );
-};
+            );
+          }
+          

@@ -2,45 +2,26 @@ import { FunctionComponent, useState } from "react";
 import { Button, Card, CardBody, Col } from "reactstrap";
 import DataTable, { TableColumn  } from 'react-data-table-component';
 
-import CreateModal from "../../components/user/Modal";
+import CreateModal from "../../components/role/Modal";
 import { ConfirmModal } from "../../components/modals/ConfirmModal";
 
 // models
-import { DataColumUser } from "../../models/dataTable/DataTable";
-import { MODE_ACTION } from "../../models/user/CreateModal";
+import { DataColumRol } from "../../models/dataTable/DataTable";
+import { MODE_ACTION } from "../../models/role/CreateModal";
 
 
-type TableHeader = TableColumn<DataColumUser>[];
+type TableHeader = TableColumn<DataColumRol>[];
 
 const ListData: FunctionComponent<{}> = () => 
 {
     
     const [ headers, setHeaders ] = useState<TableHeader>( [
         {
-            name: "Nombre",
-            selector: row => row.Nombre,
+            name: "Nombre_Rol",
+            selector: row => row.Nombre_Rol,
             sortable: true,
         },
-        {
-            name: "Apellido",
-            selector:  row => row.Apellido,
-            sortable: true,
-        },
-        {
-            name: "Correo",
-            selector: row => row.Correo,
-            sortable: true,
-        },
-        {
-            name: "Telefono",
-            selector:  row => row.Telefono,
-            sortable: true,
-        },
-        {
-            name: "Sucursal",
-            selector:  row => row.Sucursal,
-            sortable: true,
-        },
+        
         {
             name: "Acciones",
             cell: (data) => (<>
@@ -81,29 +62,8 @@ const ListData: FunctionComponent<{}> = () =>
 
     const [ data, setData ] = useState( [
         {
-            "Nombre": "Tiger Nixon",
-            "Apellido": "System Architect",
-            "Correo": "Edinburgh",
-            "Telefono": "61",
-            "Sucursal": "2011/04/25",
-            "Acciones": ""
+            "Nombre_Rol": "Admin",
         },
-        {
-            "Nombre": "Garrett Winters",
-            "Apellido": "Accountant",
-            "Correo": "Tokyo",
-            "Telefono": "63",
-            "Sucursal": "2011/07/25",
-            "Acciones": ""
-        },
-        {
-            "Nombre": "Ashton Cox",
-            "Apellido": "Junior Technical Author",
-            "Correo": "San Francisco",
-            "Telefono": "66",
-            "Sucursal": "2009/01/12",
-            "Acciones": ""
-        }
      
     ]      
     )
@@ -134,5 +94,17 @@ const ListData: FunctionComponent<{}> = () =>
     );
 
 }
+// const handleEdit = (role) => {
+//     console.log("Editar:", role);
+
+//     // Resto de la lógica para editar
+// };
+
+// const handleDelete = (role) => {
+//     console.log("Eliminar:", role);
+//     // Resto de la lógica para eliminar
+// };
+
+
 
 export default  ListData;

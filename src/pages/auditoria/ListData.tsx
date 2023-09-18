@@ -2,43 +2,38 @@ import { FunctionComponent, useState } from "react";
 import { Button, Card, CardBody, Col } from "reactstrap";
 import DataTable, { TableColumn  } from 'react-data-table-component';
 
-import CreateModal from "../../components/user/Modal";
+import CreateModal from "../../components/auditoria/Modal";
 import { ConfirmModal } from "../../components/modals/ConfirmModal";
 
 // models
-import { DataColumUser } from "../../models/dataTable/DataTable";
-import { MODE_ACTION } from "../../models/user/CreateModal";
+import { DataColum } from "../../models/dataTable/DataTable";
+import { MODE_ACTION } from "../../models/auditoria/CreateModal";
 
 
-type TableHeader = TableColumn<DataColumUser>[];
+type TableHeader = TableColumn<DataColum>[];
 
 const ListData: FunctionComponent<{}> = () => 
 {
     
     const [ headers, setHeaders ] = useState<TableHeader>( [
         {
-            name: "Nombre",
-            selector: row => row.Nombre,
+            name: "Nombre_Bitacora",
+            selector: row => row.Nombre_Bitacora,
             sortable: true,
         },
         {
-            name: "Apellido",
-            selector:  row => row.Apellido,
+            name: "Usuario_Creacion",
+            selector:  row => row.Usuario_Creacion,
             sortable: true,
         },
         {
-            name: "Correo",
-            selector: row => row.Correo,
+            name: "Usuario_Modificacion",
+            selector: row => row.Usuario_Modificacion,
             sortable: true,
         },
         {
-            name: "Telefono",
-            selector:  row => row.Telefono,
-            sortable: true,
-        },
-        {
-            name: "Sucursal",
-            selector:  row => row.Sucursal,
+            name: "Dispositivo",
+            selector: row => row.Dispositivo,
             sortable: true,
         },
         {
@@ -81,29 +76,11 @@ const ListData: FunctionComponent<{}> = () =>
 
     const [ data, setData ] = useState( [
         {
-            "Nombre": "Tiger Nixon",
-            "Apellido": "System Architect",
-            "Correo": "Edinburgh",
-            "Telefono": "61",
-            "Sucursal": "2011/04/25",
-            "Acciones": ""
+            "Nombre_Bitacora": "Tiger Nixon",
+            "Usuario_Creacion": "System Architect",
+            "Usuario_Modificacion": "Edinburgh",
+            "Dispositivo": "PC",
         },
-        {
-            "Nombre": "Garrett Winters",
-            "Apellido": "Accountant",
-            "Correo": "Tokyo",
-            "Telefono": "63",
-            "Sucursal": "2011/07/25",
-            "Acciones": ""
-        },
-        {
-            "Nombre": "Ashton Cox",
-            "Apellido": "Junior Technical Author",
-            "Correo": "San Francisco",
-            "Telefono": "66",
-            "Sucursal": "2009/01/12",
-            "Acciones": ""
-        }
      
     ]      
     )

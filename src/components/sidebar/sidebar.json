@@ -36,5 +36,25 @@
       "class_name": "",
       "is_icon_class": true,
       "icon": "ri-contacts-line"
+    },
+    {
+      "title": "Modulos",
+      "name": "dashboard-2",
+      "is_heading": false,
+      "is_active": false,
+      "link": "/modulo",
+      "class_name": "",
+      "is_icon_class": true,
+      "icon": "ri-contacts-line"
+    },
+    {
+      "title": "Auditoria",
+      "name": "dashboard-2",
+      "is_heading": false,
+      "is_active": false,
+      "link": "/auditoria",
+      "class_name": "",
+      "is_icon_class": true,
+      "icon": "ri-contacts-line"
     }
 ]

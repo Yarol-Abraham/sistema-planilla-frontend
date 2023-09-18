@@ -69,7 +69,10 @@ export default function Menu(props: IMenuProps) {
 
                                             {(subItem.children !== undefined && subItem.children.length > 0) && (<i className="ri-arrow-right-s-line iq-arrow-right" />)}
                                         </a>
+                                        
                                     )
+
+                                    
                             )}
                     {(subItem.children !== undefined && subItem.children.length > 0) && (
                         <Menu items={subItem.children} className={"iq-submenu collapse " + subItem.className ?? ''} id={subItem.name} dataParent={subItem.class_name !== undefined && subItem.class_name !== '' ? '' : '#iq-sidebar-toggle'} />
