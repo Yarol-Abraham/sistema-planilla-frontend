@@ -3,7 +3,7 @@ import { FunctionComponent, useState } from "react";
 import { Button, Card, CardBody, Col } from "reactstrap";
 import DataTable, { TableColumn  } from 'react-data-table-component';
 
-import CreateModal from "../../components/user/Modal";
+import CreateModal from "../../components/Modulo/Modal";
 import { ConfirmModal } from "../../components/modals/ConfirmModal";
 
 // models
@@ -18,17 +18,17 @@ const ListData: FunctionComponent<{}> = () =>
     
     const [ headers, setHeaders ] = useState<TableHeader>( [
         {
-            name: "Nombre_Modulo",
+            name: "Nombre de Modulo",
             selector: row => row.Nombre_Modulo,
             sortable: true,
         },
         {
-            name: "Usuario_Creacion",
+            name: "Usuario Creacion",
             selector:  row => row.Usuario_Creacion,
             sortable: true,
         },
         {
-            name: "Usuario_Modificacion",
+            name: "Usuario Modificacion",
             selector: row => row.Usuario_Modificacion,
             sortable: true,
         },

@@ -17,7 +17,7 @@ const ListData: FunctionComponent<{}> = () =>
     
     const [ headers, setHeaders ] = useState<TableHeader>( [
         {
-            name: "Nombre_Rol",
+            name: "Nombre Rol",
             selector: row => row.Nombre_Rol,
             sortable: true,
         },

@@ -41,7 +41,7 @@ export default function User()
         <>
             <Layout>
                 <Container>
-                   <Row>
+                    <Row>
                         <Col lg={12}>
                             <Card className={"iq-card custom-zindex"}>
                                 <CardHeader>
@@ -94,7 +94,7 @@ export default function User()
                     </Row>
                     <Row>
                         <ListData />
-                    </Row> 
+                    </Row>
                 </Container>    
             </Layout>
         </>

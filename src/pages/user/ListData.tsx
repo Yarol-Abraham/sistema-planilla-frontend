@@ -6,11 +6,11 @@ import CreateModal from "../../components/user/Modal";
 import { ConfirmModal } from "../../components/modals/ConfirmModal";
 
 // models
-import { DataColumUser } from "../../models/dataTable/DataTable";
+import { DataColum } from "../../models/dataTable/DataTable";
 import { MODE_ACTION } from "../../models/user/CreateModal";
 
 
-type TableHeader = TableColumn<DataColumUser>[];
+type TableHeader = TableColumn<DataColum>[];
 
 const ListData: FunctionComponent<{}> = () => 
 {

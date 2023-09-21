@@ -62,9 +62,6 @@ export default function auditoria()
                                         
                                         <Col  className={"d-flex justify-content-end mb-2 mb-md-0 col-12 col-md-4 col-lg-6"}>
                                             <div className=" todo-notification d-flex align-items-center">
-                                            <button type="button" className="btn iq-bg-primary iq-waves-effect btn-lg" onClick={toggle} >
-                                                    Nuevo
-                                                </button>
                                             </div>
                                         </Col>
                                     </div>
@@ -90,7 +87,6 @@ export default function auditoria()
                                 </CardBody>
                             </Card>
                         </Col>
-                        <CreateModal isOpen={isOpen} toggleF={toggle} mode={MODE_ACTION.CREATE} />
                     </Row>
                     <Row>
                         <ListData />

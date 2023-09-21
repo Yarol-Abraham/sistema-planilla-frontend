@@ -6,28 +6,28 @@ import CreateModal from "../../components/auditoria/Modal";
 import { ConfirmModal } from "../../components/modals/ConfirmModal";
 
 // models
-import { DataColum } from "../../models/dataTable/DataTable";
+import { DataColumBitacora } from "../../models/dataTable/DataTable";
 import { MODE_ACTION } from "../../models/auditoria/CreateModal";
 
 
-type TableHeader = TableColumn<DataColum>[];
+type TableHeader = TableColumn<DataColumBitacora>[];
 
 const ListData: FunctionComponent<{}> = () => 
 {
     
     const [ headers, setHeaders ] = useState<TableHeader>( [
         {
-            name: "Nombre_Bitacora",
+            name: "Nombre de Bitacora",
             selector: row => row.Nombre_Bitacora,
             sortable: true,
         },
         {
-            name: "Usuario_Creacion",
+            name: "Usuario Creacion",
             selector:  row => row.Usuario_Creacion,
             sortable: true,
         },
         {
-            name: "Usuario_Modificacion",
+            name: "Usuario Modificacion",
             selector: row => row.Usuario_Modificacion,
             sortable: true,
         },
@@ -47,26 +47,9 @@ const ListData: FunctionComponent<{}> = () =>
                         toggle();
                     }}
                 >
-                        <i className="ri-edit-box-line p-0"></i>
+                         <i className="ri-checkbox-circle-line p-0"></i>
                 </Button>
-                <Button 
-                    onClick={ ()=> 
-                    {
-                        console.log(data);
-                        toggleConfirm();
-                    }}
-                    className="btn btn-danger mx-1">
-                        <i className="ri-close-circle-line p-0"></i>
-                </Button>
-                <Button 
-                    onClick={ ()=> 
-                    {
-                        console.log(data);
-                        toggleConfirm();
-                    }}
-                    className="btn btn-wargin mx-1">
-                        <i className="ri-checkbox-circle-line p-0"></i>
-                </Button>
+              
                 
             </>),
             sortable: true
