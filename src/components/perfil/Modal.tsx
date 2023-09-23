@@ -1,13 +1,20 @@
-import { FunctionComponent } from "react";
+import { FunctionComponent, useState } from "react";
 import { Button, Col, FormGroup, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader, Row } from 'reactstrap';
 import { Formik } from 'formik';
 import * as Yup from "yup";
 import { ICreateModal, MODE_ACTION } from "../../models/perfil/CreateModal";
 import { useAuthenticationAction } from "../../hooks/UseAuthentication";
+import { EntUsuario } from "../../context/inteface/sessionInformation/sessionInformation";
+import { SUCCESS } from "../../utils/Methods";
 
 const CreateModal: FunctionComponent<ICreateModal> = (props) => {
-    const { usuarioResponse } = useAuthenticationAction();
 
+    const { usuarioResponse, sessionInformationResponse, updatePerfil } = useAuthenticationAction();
+    const [ message, setMessage ] = useState({
+        code: "",
+        message: ""
+    });
+    const [submited, setSubmitted] = useState(false);
     const { isOpen, toggleF, mode } = props;
 
     return (
@@ -18,10 +25,17 @@ const CreateModal: FunctionComponent<ICreateModal> = (props) => {
 
             <Formik
                 initialValues={usuarioResponse.entUsuario}
-                onSubmit={async (values) => {
-                    console.log("guardando datos " + values);
-                   // await new Promise((resolve) => setTimeout(resolve, 500));
-                //    values.id = 1;
+                onSubmit={async (values: EntUsuario ) => {
+                    setSubmitted(true);
+                    usuarioResponse.entUsuario = values;
+                    let resultUpdate: any = await updatePerfil(usuarioResponse, sessionInformationResponse);
+                    setTimeout(()=> {
+                        setMessage({ code:resultUpdate.strResponseCode, message: resultUpdate.strResponseMessage });
+                        //toggleF();
+                        setSubmitted(false);
+                    }, 3000)
+
+                    setTimeout(()=> setMessage({ code: "", message: "" }), 6000);
                 }}
                 validationSchema={
                     Yup.object().shape({
@@ -48,6 +62,11 @@ const CreateModal: FunctionComponent<ICreateModal> = (props) => {
                     isSubmitting
                 }) => (
                     <form noValidate onSubmit={handleSubmit}>
+                        {
+                            message.message  && <div className={`alert alert-${message.code == SUCCESS ? 'success' : 'danger'}`}>
+                                <span className="p-0"> {message.message} </span>
+                            </div>
+                        }
                         <ModalBody>
                             <Row>
                                 <Col md={6}>
@@ -135,6 +154,7 @@ const CreateModal: FunctionComponent<ICreateModal> = (props) => {
                                             onBlur={handleBlur}
                                             value={values.correoElectronico}
                                             style={{ height: '40px' }}
+                                            disabled
                                         />
                                         {errors.correoElectronico && <div className="invalid-feedback">{errors.correoElectronico}</div>}
                                     </FormGroup>
@@ -161,8 +181,13 @@ const CreateModal: FunctionComponent<ICreateModal> = (props) => {
                             </Row>
                         </ModalBody>
                         <ModalFooter>
-                            <Button color="primary" type="submit">Guardar Cambios</Button>{' '}
+                            <Button color="primary" className={!submited ? "" : "d-none"} type="submit">Guardar Cambios</Button>{' '}
+                            {
+                                submited &&
+                                <img className='h-100' src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+                            }
                             <Button color="secondary" onClick={() => toggleF()}>Cancelar</Button>
+                            
                         </ModalFooter>
                     </form>
                 )}

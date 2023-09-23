@@ -4,6 +4,7 @@ export const SESSIONINFORMATION_CREDENTIAL = 'SESSIONINFORMATION_CREDENTIAL';
 export const SESSIONINFORMATION_SUCCESS = "SESSIONINFORMATION_SUCCESS";
 export const SESSIONINFORMATION_FAIL = "SESSIONINFORMATION_FAIL";
 export const GET_PERFIL = "GET_PERFIL";
+export const UPDATE_PERFIL = "UPDATE_PERFIL";
 
 export type ACTION = |
     {
@@ -26,6 +27,13 @@ export type ACTION = |
     }
     | {
         type: 'GET_PERFIL';
+        payload: {
+            usuarioResponse: UsuarioResponse
+        }
+    }
+    |
+    {
+        type: 'UPDATE_PERFIL';
         payload: {
             usuarioResponse: UsuarioResponse
         }

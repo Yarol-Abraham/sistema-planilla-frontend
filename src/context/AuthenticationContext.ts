@@ -8,5 +8,6 @@ export const AuthenticationContext = createContext<props>({
     getSessionInformation(){},
     postSessionInformation(){},
     selectRole(){ return "" },
-    getInformationPerfil(){}
+    getInformationPerfil(){},
+    updatePerfil(){}
 });

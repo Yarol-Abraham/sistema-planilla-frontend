@@ -2,7 +2,8 @@ import {
     SESSIONINFORMATION_SUCCESS,
     SESSIONINFORMATION_FAIL,
     GET_PERFIL,
-    ACTION
+    ACTION,
+    UPDATE_PERFIL
 } from "../types/authenticationType";
 
 import { props } from "../inteface/sessionInformation/sessionInformationProps";
@@ -19,6 +20,7 @@ const AuthenticationReducer: Reducer<props,ACTION> = (state: props, action: ACTI
                 sessionInformationResponse: action.payload.sessionInformationResponse
             }
 
+        case UPDATE_PERFIL:
         case GET_PERFIL:
             return {
                 ...state,

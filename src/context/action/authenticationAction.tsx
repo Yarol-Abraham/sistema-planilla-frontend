@@ -4,7 +4,7 @@ import { AuthenticationContext } from "../AuthenticationContext";
 import AuthenticationReducer from "../reducer/authenticationReducer";
 import { initialState } from "../inteface/sessionInformation/sessionInformationProps";
 import { SessionInformationCredential, SessionInformationResponse, UsuarioResponse } from "../inteface/sessionInformation/sessionInformation";
-import { GET_PERFIL, SESSIONINFORMATION_FAIL, SESSIONINFORMATION_SUCCESS } from "../types/authenticationType";
+import { GET_PERFIL, SESSIONINFORMATION_FAIL, SESSIONINFORMATION_SUCCESS, UPDATE_PERFIL } from "../types/authenticationType";
 import { SUCCESS, ERROR } from "../../utils/Methods";
 
 import request, { sendSessionIdAuthorization } from "../../config/axios";
@@ -158,7 +158,6 @@ const AuthenticationAction: React.FC<props> = (props: props)  =>
                     usuarioResponse
                 }
             });
-
         }
         catch(error)
         {
@@ -167,14 +166,35 @@ const AuthenticationAction: React.FC<props> = (props: props)  =>
     }
 
     // actualizar mis datos del perfil
-    const updatePerfil = function()
+    const updatePerfil = async function(usuarioResponse: UsuarioResponse, sessionInformationResponse: SessionInformationResponse): Promise<UsuarioResponse>
     {
+        let getResponse: UsuarioResponse = initialState.usuarioResponse;
         try{
+            // idUsuario
+            sendSessionIdAuthorization(request, sessionInformationResponse.strSessionId);
+            const sendRequest = await request.post("/tec/user/update", {  ...usuarioResponse.entUsuario, idUsuario: sessionInformationResponse.strIdUsuario  });
+            getResponse = sendRequest.data;
+            getResponse.strResponseMessage = "DATOS ACTUALIZADOS CORRECTAMENTE";
+            dispatch({
+                type: UPDATE_PERFIL,
+                payload: {
+                    usuarioResponse: getResponse
+                }
+            });
 
         }catch(error)
         {
-
+            console.log(error);
+            getResponse.strResponseCode = ERROR;
+            getResponse.strResponseMessage = "Ha ocurrido un error inesperado";
+            dispatch({
+                type: UPDATE_PERFIL,
+                payload: {
+                    usuarioResponse: getResponse
+                }
+            });
         }
+        return getResponse;
     } 
 
     // mostrar lista de usuarios
@@ -196,7 +216,8 @@ const AuthenticationAction: React.FC<props> = (props: props)  =>
                 getSessionInformation,
                 postSessionInformation,
                 selectRole,
-                getInformationPerfil
+                getInformationPerfil,
+                updatePerfil
             }}
         >
             {props.children}

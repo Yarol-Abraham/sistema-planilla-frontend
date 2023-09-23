@@ -19,7 +19,9 @@ export default function ResetPassword()
           </div>
           <div className="sign-info">
                 <span className="dark-color d-inline-block line-height-2">¿Ingresar por pregunta de usuario? 
-                    <Link to="/"> Click aqui</Link></span>
+                    {/* <Link to="/"> Click aqui</Link> */}
+                    <a href="#">  Click aqui </a>
+                </span>
             </div>
       </form>
    </Template>

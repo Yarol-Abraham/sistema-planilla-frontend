@@ -17,6 +17,7 @@ import { MODE_ACTION } from '../../models/perfil/CreateModal';
 import CreateModal from "../../components/perfil/Modal";
 
 import { useAuthenticationAction } from '../../hooks/UseAuthentication';
+import { EntUsuario } from '../../context/inteface/sessionInformation/sessionInformation';
 
 export default function Perfil() {
 
@@ -24,14 +25,13 @@ export default function Perfil() {
 
     const [isOpen, setisOpen] = useState(false);
     const toggle = () => setisOpen(!isOpen);
-      
+    
     useEffect(()=> {
         if(sessionInformationResponse.strSessionId != undefined && sessionInformationResponse.strSessionId != "" ) 
         {
             getInformationPerfil(sessionInformationResponse);
         }
      }, [sessionInformationResponse])
-
 
     return (
         <Layout>

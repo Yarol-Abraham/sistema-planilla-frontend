@@ -8,6 +8,7 @@ export interface props {
     postSessionInformation:  (sessionInformationCredential: SessionInformationCredential) => void,
     selectRole: (role: number) => String,
     getInformationPerfil: (sessionInformationResponse: SessionInformationResponse) => void
+    updatePerfil:(usuarioResponse: UsuarioResponse,sessionInformationResponse: SessionInformationResponse ) => void
 }
 
 export const initialState: props = {
@@ -40,5 +41,6 @@ export const initialState: props = {
     getSessionInformation: function(){},
     postSessionInformation: function() {},
     selectRole: function(){ return "" },
-    getInformationPerfil: function(){ }
+    getInformationPerfil: function(){},
+    updatePerfil: function(){}
 }
