@@ -1,11 +1,13 @@
-import { SessionInformationCredential, SessionInformationResponse } from "./sessionInformation";
+import { SessionInformationCredential, SessionInformationResponse, UsuarioResponse } from "./sessionInformation";
 
 export interface props {
     sessionInformationResponse: SessionInformationResponse,
     sessionInformationCredential: SessionInformationCredential,
+    usuarioResponse: UsuarioResponse,
     getSessionInformation: () => void,
     postSessionInformation:  (sessionInformationCredential: SessionInformationCredential) => void,
-    selectRole: (role: number) => String
+    selectRole: (role: number) => String,
+    getInformationPerfil: (sessionInformationResponse: SessionInformationResponse) => void
 }
 
 export const initialState: props = {
@@ -23,7 +25,20 @@ export const initialState: props = {
         correoElectronico: "",
         password: ""
     },
+    usuarioResponse: {
+        strResponseCode: "",
+        strResponseMessage: "",
+        entUsuario: {
+            nombre: "",
+            apellido: "",
+            correoElectronico: "",
+            telefonoMovil: "",
+            fechaNacimiento: "",
+            idGenero: 0
+        }
+    },
     getSessionInformation: function(){},
     postSessionInformation: function() {},
-    selectRole: function(){ return "" }
+    selectRole: function(){ return "" },
+    getInformationPerfil: function(){ }
 }

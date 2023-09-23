@@ -18,3 +18,19 @@ export interface ListRole {
     idRole: number
     nombre: string
 }
+
+export interface UsuarioResponse {
+    strResponseCode: string
+    strResponseMessage: string
+    entUsuario: EntUsuario
+  }
+  
+  export interface EntUsuario {
+    nombre: string
+    apellido: string
+    correoElectronico: string
+    telefonoMovil: string
+    fechaNacimiento: string
+    idGenero: number
+  }
+  

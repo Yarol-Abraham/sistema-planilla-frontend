@@ -3,8 +3,11 @@ import { Button, Col, FormGroup, Input, Label, Modal, ModalBody, ModalFooter, Mo
 import { Formik } from 'formik';
 import * as Yup from "yup";
 import { ICreateModal, MODE_ACTION } from "../../models/perfil/CreateModal";
+import { useAuthenticationAction } from "../../hooks/UseAuthentication";
 
 const CreateModal: FunctionComponent<ICreateModal> = (props) => {
+    const { usuarioResponse } = useAuthenticationAction();
+
     const { isOpen, toggleF, mode } = props;
 
     return (
@@ -14,20 +17,11 @@ const CreateModal: FunctionComponent<ICreateModal> = (props) => {
             </ModalHeader>
 
             <Formik
-                initialValues={{
-                    id: 1,
-                    nombre: '',
-                    apellido: '',
-                    idGenero: '0',
-                    correoElectronico: '',
-                    telefonoMovil: '',
-                    fechaNacimiento: '',
-                    idSucursal: '0'
-                }}
+                initialValues={usuarioResponse.entUsuario}
                 onSubmit={async (values) => {
                     console.log("guardando datos " + values);
-                    await new Promise((resolve) => setTimeout(resolve, 500));
-                    values.id = 1;
+                   // await new Promise((resolve) => setTimeout(resolve, 500));
+                //    values.id = 1;
                 }}
                 validationSchema={
                     Yup.object().shape({

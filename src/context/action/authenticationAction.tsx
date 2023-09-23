@@ -3,8 +3,8 @@ import { ReactNode, useEffect, useReducer } from "react";
 import { AuthenticationContext } from "../AuthenticationContext";
 import AuthenticationReducer from "../reducer/authenticationReducer";
 import { initialState } from "../inteface/sessionInformation/sessionInformationProps";
-import { SessionInformationCredential, SessionInformationResponse } from "../inteface/sessionInformation/sessionInformation";
-import { SESSIONINFORMATION_FAIL, SESSIONINFORMATION_SUCCESS } from "../types/authenticationType";
+import { SessionInformationCredential, SessionInformationResponse, UsuarioResponse } from "../inteface/sessionInformation/sessionInformation";
+import { GET_PERFIL, SESSIONINFORMATION_FAIL, SESSIONINFORMATION_SUCCESS } from "../types/authenticationType";
 import { SUCCESS, ERROR } from "../../utils/Methods";
 
 import request, { sendSessionIdAuthorization } from "../../config/axios";
@@ -54,8 +54,9 @@ const AuthenticationAction: React.FC<props> = (props: props)  =>
         }catch(error: any)
         {
             console.log(error);
+            
             sessionInfomationObject =  initialState.sessionInformationResponse;
-             if(error.response.data.status == 403)
+             if(error.code == 'ERR_NETWORK' || error.response.data.status == 403)
              {
                 sessionInfomationObject.strResponseCode = ERROR;
                 sessionInfomationObject.strResponseMessage = "SESIÓN CADUCADA, VUELVE A INICIAR SESIÓN";
@@ -143,6 +144,45 @@ const AuthenticationAction: React.FC<props> = (props: props)  =>
         return ERROR;
     }
 
+    // obtener datos de sesion
+    const getInformationPerfil = async function(sessionInformationResponse: SessionInformationResponse)
+    {
+        try{
+            sendSessionIdAuthorization(request, sessionInformationResponse.strSessionId);
+            const sendRequest = await request.get("/tec/user/perfil");
+            let usuarioResponse: UsuarioResponse = sendRequest.data;
+
+            dispatch({
+                type: GET_PERFIL,
+                payload: {
+                    usuarioResponse
+                }
+            });
+
+        }
+        catch(error)
+        {
+            console.log(error);
+        }
+    }
+
+    // actualizar mis datos del perfil
+    const updatePerfil = function()
+    {
+        try{
+
+        }catch(error)
+        {
+
+        }
+    } 
+
+    // mostrar lista de usuarios
+
+
+    // mostrar lista de roles
+
+
     useEffect(()=> {
         if(!IGNORE_PATH.includes(window.location.pathname)) getSessionInformation();
     }, [])
@@ -152,9 +192,11 @@ const AuthenticationAction: React.FC<props> = (props: props)  =>
             value={{
                 sessionInformationResponse: state.sessionInformationResponse,
                 sessionInformationCredential: state.sessionInformationCredential,
+                usuarioResponse: state.usuarioResponse,
                 getSessionInformation,
                 postSessionInformation,
-                selectRole
+                selectRole,
+                getInformationPerfil
             }}
         >
             {props.children}

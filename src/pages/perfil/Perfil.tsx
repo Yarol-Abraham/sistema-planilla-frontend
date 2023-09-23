@@ -15,56 +15,23 @@ import Layout from '../../layout/Layout';
 
 import { MODE_ACTION } from '../../models/perfil/CreateModal';
 import CreateModal from "../../components/perfil/Modal";
-import '@wojtekmaj/react-daterange-picker/dist/DateRangePicker.css';
-import 'react-calendar/dist/Calendar.css';
 
-type ValuePiece = Date | null;
-type Value = ValuePiece | [ValuePiece, ValuePiece];
+import { useAuthenticationAction } from '../../hooks/UseAuthentication';
 
 export default function Perfil() {
+
+    const { getInformationPerfil, sessionInformationResponse, usuarioResponse  } = useAuthenticationAction();
+
     const [isOpen, setisOpen] = useState(false);
     const toggle = () => setisOpen(!isOpen);
+      
+    useEffect(()=> {
+        if(sessionInformationResponse.strSessionId != undefined && sessionInformationResponse.strSessionId != "" ) 
+        {
+            getInformationPerfil(sessionInformationResponse);
+        }
+     }, [sessionInformationResponse])
 
-    const [value, onChange] = useState<Value>([new Date(), new Date()]);
-
-    const [userData, setUserData] = useState({
-        nombre: '',
-        apellido: '',
-        correo: '',
-        fechaNacimiento: '',
-        genero: '',
-        telefono: ''
-    });
-
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setUserData({ ...userData, [name]: value });
-    };
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        // Aquí puedes enviar los datos actualizados al servidor si es necesario
-        console.log('Datos actualizados:', userData);
-    };
-
-    useEffect(() => {
-        // Simulación de solicitud para recuperar datos del usuario
-        const fetchUserData = async () => {
-            try {
-                const response = await fetch('/api/usuario'); // Reemplaza con la URL correcta para obtener datos del usuario
-                if (response.ok) {
-                    const userData = await response.json();
-                    setUserData(userData);
-                } else {
-                    console.error('Error al recuperar datos del perfil');
-                }
-            } catch (error) {
-                console.error('Error al recuperar datos del perfil:', error);
-            }
-        };
-
-        fetchUserData();
-    }, []);
 
     return (
         <Layout>
@@ -84,8 +51,8 @@ export default function Perfil() {
                                         type='text'
                                         name='nombre'
                                         id='nombre'
-                                        value={userData.nombre}
-                                        onChange={handleChange}
+                                        value={ usuarioResponse.entUsuario.nombre}
+                                       
                                         disabled
                                     />
                                 </FormGroup>
@@ -97,8 +64,8 @@ export default function Perfil() {
                                         type='text'
                                         name='apellido'
                                         id='apellido'
-                                        value={userData.apellido}
-                                        onChange={handleChange}
+                                        value={ usuarioResponse.entUsuario.apellido}
+                                       
                                         disabled
                                     />
                                 </FormGroup>
@@ -112,8 +79,8 @@ export default function Perfil() {
                                         type='email'
                                         name='correo'
                                         id='correo'
-                                        value={userData.correo}
-                                        onChange={handleChange}
+                                        value={ usuarioResponse.entUsuario.correoElectronico}
+                                       
                                         disabled
                                     />
                                 </FormGroup>
@@ -125,8 +92,8 @@ export default function Perfil() {
                                 type='tel'
                                 name='telefono'
                                 id='telefono'
-                                value={userData.telefono}
-                                onChange={handleChange}
+                                value={usuarioResponse.entUsuario.telefonoMovil}
+                               
                                 disabled
                             />
                         </FormGroup>
@@ -140,8 +107,8 @@ export default function Perfil() {
                                         type='date'
                                         name='fechaNacimiento'
                                         id='fechaNacimiento'
-                                        value={userData.fechaNacimiento}
-                                        onChange={handleChange}
+                                        value={ usuarioResponse.entUsuario.fechaNacimiento}
+                                       
                                         disabled
                                     />
                                 </FormGroup>
@@ -153,8 +120,8 @@ export default function Perfil() {
                                 type='select'
                                 name='genero'
                                 id='genero'
-                                value={userData.genero}
-                                onChange={handleChange}
+                                value={ usuarioResponse.entUsuario.idGenero}
+                               
                                 disabled
                             >
                                 <option value='masculino'>Masculino</option>

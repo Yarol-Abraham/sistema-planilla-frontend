@@ -1,8 +1,9 @@
-import { SessionInformationCredential, SessionInformationResponse } from "../inteface/sessionInformation/sessionInformation";
+import { SessionInformationCredential, SessionInformationResponse, UsuarioResponse } from "../inteface/sessionInformation/sessionInformation";
 
 export const SESSIONINFORMATION_CREDENTIAL = 'SESSIONINFORMATION_CREDENTIAL';
 export const SESSIONINFORMATION_SUCCESS = "SESSIONINFORMATION_SUCCESS";
 export const SESSIONINFORMATION_FAIL = "SESSIONINFORMATION_FAIL";
+export const GET_PERFIL = "GET_PERFIL";
 
 export type ACTION = |
     {
@@ -22,4 +23,11 @@ export type ACTION = |
         payload: {
             sessionInformationResponse: SessionInformationResponse
         }
-    };
+    }
+    | {
+        type: 'GET_PERFIL';
+        payload: {
+            usuarioResponse: UsuarioResponse
+        }
+    }
+    ;

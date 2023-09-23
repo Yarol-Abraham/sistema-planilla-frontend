@@ -1,6 +1,7 @@
 import { 
     SESSIONINFORMATION_SUCCESS,
     SESSIONINFORMATION_FAIL,
+    GET_PERFIL,
     ACTION
 } from "../types/authenticationType";
 
@@ -16,6 +17,12 @@ const AuthenticationReducer: Reducer<props,ACTION> = (state: props, action: ACTI
             return {
                 ...state,
                 sessionInformationResponse: action.payload.sessionInformationResponse
+            }
+
+        case GET_PERFIL:
+            return {
+                ...state,
+                usuarioResponse: action.payload.usuarioResponse
             }
     
         default:
