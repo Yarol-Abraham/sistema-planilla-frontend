@@ -6,6 +6,9 @@ import UserRouter from './routes/user/UserRouter';
 import RoleRouter from './routes/role/RoleRouter';
 import AuditoriaRouter from './routes/auditoria/AuditoriaRouter';
 import ModuloRouter from './routes/modulo/ModuloRouter';
+import PerfilRouter from './routes/perfil/PerfilRouter';
+import CambioRouter from './routes/cambio/CambioRouter';
+
 function App() {
 
   return (
@@ -16,8 +19,10 @@ function App() {
             <Route path='/user/*' element={ <UserRouter /> } />
             <Route path='/' element={<Dashboard />} />
             <Route path='/role' element={<RoleRouter />} />
+            <Route path='/perfil' element={<PerfilRouter />} />
             <Route path='/auditoria' element={<AuditoriaRouter />} />
             <Route path='/modulo' element={<ModuloRouter />} />
+            <Route path='/cambio' element={<CambioRouter />} />
             <Route path='*' element={<NotFound /> } />
         </Routes>
       </BrowserRouter>

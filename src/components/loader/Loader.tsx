@@ -25,8 +25,6 @@ const loaderInit = () => {
 
 export default function Loader() 
 {
-    
-
     useEffect(() => {
         loaderInit();
     }, [])

@@ -7,7 +7,7 @@ export  default function Dashboard()
     <Layout>
           <Row>
             <Col md={12}>
-                Here Add Your HTML Content.....
+                Bienvenido
             </Col>
           </Row>
     </Layout>
