@@ -6,9 +6,9 @@ import sidebarItems from './sidebar.json';
 // models
 import { ISidebarProps } from "../../models/sidebar/Sidebar";
 
-
 export default function Sidebar(props: ISidebarProps) 
 {
+    
     const { toggleFC, openMenu  } = props;
 
     return (

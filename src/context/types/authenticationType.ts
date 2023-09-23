@@ -1,4 +1,4 @@
-import { SessionInformationCredential, SessionInformationResponse } from "../inteface/sessionInformation";
+import { SessionInformationCredential, SessionInformationResponse } from "../inteface/sessionInformation/sessionInformation";
 
 export const SESSIONINFORMATION_CREDENTIAL = 'SESSIONINFORMATION_CREDENTIAL';
 export const SESSIONINFORMATION_SUCCESS = "SESSIONINFORMATION_SUCCESS";

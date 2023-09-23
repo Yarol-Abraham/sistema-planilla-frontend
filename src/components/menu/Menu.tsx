@@ -1,5 +1,7 @@
 import { NavLink } from "react-router-dom";
 
+import { useMenuAction } from "../../hooks/UseMenu";
+
 export interface IMenuProps {
     items: Array<any>, 
     className: string,
@@ -8,78 +10,74 @@ export interface IMenuProps {
     visible?: boolean
 }
 
-const getActiveLink = (item: any) => {
-    let link = (item.link === undefined || item.link === '/') ? '' : item.link;
-    let active = false;
-    let windowPath = window.location.pathname;
-    let windowLength = (windowPath.length - 1)
-    let removePreg = windowPath[windowLength]
-    if (removePreg === '/') {
-      windowPath = windowPath.slice(0, windowLength)
-    }
-  
-    if (item.children !== undefined) {
-      item.children.filter(function (child: any) {
-        let base_path = import.meta.env.VITE_PUBLIC_URL + child.link;
-        if (base_path === windowPath) {
-          active = true;
-        }
-      });
-    } else {
-      let base_path = import.meta.env.VITE_PUBLIC_UR + link;
-      if (base_path === windowPath) {
-        active = true
-      }
-    }
-    window.scrollTo(0, 0);
-    return active;
-  
-  };
-
-
-export default function Menu(props: IMenuProps) {
-    const { items, className } = props;
+export default function Menu(props: IMenuProps) 
+{
+    const {  menuResponse } = useMenuAction();
+   
+    const { className } = props;
 
    
     return (
-
-        <ul className={className} id={props.id} data-parent={props.dataParent}>
-            {items.map((subItem, subIndex) => (
-                < li key={subIndex + "submenu"} className={(subItem.is_heading) ? "iq-menu-title" : "" + (subItem.is_active === true ? " active show" : "") + (getActiveLink(subItem) ? "active show" : "" ) }>
-                    {
-                        (subItem.is_heading) ?
-                            (
-                                <>
-                                    <i className="ri-subtract-line" />
-                                    <span>{subItem.title}</span>
-                                </>
-                            ) :
-                            (
-                                (subItem.link !== undefined) ? (
-                                    <NavLink to={subItem.link} className={"iq-waves-effect  " + getActiveLink(subItem) && subItem.children ? 'active' : getActiveLink(subItem) ? 'active' : ''}>
-                                        {subItem.icon && (<i className={subItem.icon} />)}
-                                        <span>{subItem.title}</span>
-                                    </NavLink>
-                                )
-                                    :
-                                    (
-                                        <a role="button" onClick={(e) => e.preventDefault} className="iq-waves-effect collapsed" data-toggle="collapse" data-target={"#" + subItem.name} aria-expanded={ getActiveLink(subItem)  ? true : false}>
-                                            {subItem.icon && (<i className={subItem.icon} />)}
-                                            <span>{subItem.title}</span>
-
-                                            {(subItem.children !== undefined && subItem.children.length > 0) && (<i className="ri-arrow-right-s-line iq-arrow-right" />)}
-                                        </a>
-                                        
-                                    )
-
-                                    
-                            )}
-                    {(subItem.children !== undefined && subItem.children.length > 0) && (
-                        <Menu items={subItem.children} className={"iq-submenu collapse " + subItem.className ?? ''} id={subItem.name} dataParent={subItem.class_name !== undefined && subItem.class_name !== '' ? '' : '#iq-sidebar-toggle'} />
-                    )}
-                </li>
-            ))
-            }
-        </ul >
+        <>
+            <ul className={className} id={props.id} data-parent={props.dataParent}>
+                {
+                   menuResponse.entModulo.map( (modulo, subIndex) => (
+                   <div key={modulo.idModulo}>
+                        {
+                            modulo.menu.length > 0 ? (
+                                <li  key={subIndex + "submenu"} className={"iq-menu-title"} >
+                                <i className="ri-subtract-line" />
+                                <span>{ modulo.nombre}</span>
+                                <ul>
+                                    { 
+                                        modulo.menu.map( (menuItem, subIndex1) => (
+                                            <li key={subIndex1}>
+                                                {
+                                                  menuItem.opciones.length > 0 ? (
+                                                    <a 
+                                                    role="button" 
+                                                    className="iq-waves-effect collapsed" 
+                                                    data-toggle="collapse" 
+                                                    data-target={"#" + menuItem.nombre}
+                                                onClick={(e) => e.preventDefault  } 
+                                                >
+                                                    <i className={"ri-pencil-ruler-line"} />
+                                                    <span>{menuItem.nombre}</span>
+                                                    {(menuItem.opciones !== undefined && menuItem.opciones.length > 0) && 
+                                                    (<i className="ri-arrow-right-s-line iq-arrow-right" />)}
+                                                </a>
+                                                  ) : null
+                                                }
+                                               {
+                                                 menuItem.opciones.length > 0 ? (
+                                                    <ul className="iq-submenu collapse show" id={menuItem.idMenu+menuItem.nombre}>
+                                                        {
+                                                            menuItem.opciones.map((opcion, subIndex2 )=> (
+                                                               <li  key={subIndex2} className="bg-dark">
+                                                                    <i className="ri-subtract-line"></i>
+                                                                    <NavLink to={"/"+opcion.pagina} className={"iq-waves-effect "}>
+                                                                        <span className="mx-4">
+                                                                        <i className="ri-checkbox-blank-circle-line"></i> {opcion.nombre}
+                                                                        </span>
+                                                                    </NavLink>
+                                                               </li>
+                                                            ) )
+                                                        }
+                                                    </ul>
+                                                 ) : null
+                                               }
+                                            </li> 
+                                        ) )
+                                    }
+                                </ul>
+                            </li>
+                            ) : ""
+                        }                   
+                   </div>
+                   )) 
+                }
+            </ul>   
+        </>
+      
     );
 }

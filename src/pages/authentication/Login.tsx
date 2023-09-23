@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
 import { useAuthenticationAction } from '../../hooks/UseAuthentication';
-import { SessionInformationCredential } from '../../context/inteface/sessionInformation';
+import { SessionInformationCredential } from '../../context/inteface/sessionInformation/sessionInformation';
 
 import { SUCCESS } from '../../utils/Methods';
 

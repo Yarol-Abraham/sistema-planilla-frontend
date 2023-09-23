@@ -1,9 +1,9 @@
 import { useContext } from "react";
-import { AuthenticationContext } from "../context/AuthenticationContext";
+import MenuContext from "../context/MenuContext";
 
 // custom hook - auth
-export const useAuthenticationAction = () => {
-    const context = useContext(AuthenticationContext);
+export const useMenuAction = () => {
+    const context = useContext(MenuContext);
     if (context === undefined) {
       throw new Error('useAuthenticationAction debe usarse dentro de un AuthProvider');
     }

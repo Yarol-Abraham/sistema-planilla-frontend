@@ -4,7 +4,7 @@ import {
     ACTION
 } from "../types/authenticationType";
 
-import { props } from "../inteface/sessionInformationProps";
+import { props } from "../inteface/sessionInformation/sessionInformationProps";
 import { Reducer } from "react";
 
 const AuthenticationReducer: Reducer<props,ACTION> = (state: props, action: ACTION) => {

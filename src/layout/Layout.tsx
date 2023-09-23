@@ -12,10 +12,12 @@ import Loader from '../components/loader/Loader';
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 
 import { useAuthenticationAction } from '../hooks/UseAuthentication'; 
+import { useMenuAction } from '../hooks/UseMenu';
 
 const Layout: React.FunctionComponent<ILayoutProps> = (props:ILayoutProps) => {
 
     const { sessionInformationResponse } = useAuthenticationAction();
+    const {  getMenu } = useMenuAction();
     const [ collapsed, setCollapse ] = useState(false);
     const [ profile, setProfile  ] = useState(false);
     const [ openMenu, setopenMenu ] = useState(false);
@@ -46,9 +48,11 @@ const Layout: React.FunctionComponent<ILayoutProps> = (props:ILayoutProps) => {
         if(role.length > 0) setRole(role[0].nombre);
     } 
 
+    useEffect(()=>  getRole(), [sessionInformationResponse.listRoles])
+    
     useEffect(()=> {
-        getRole();
-    }, [sessionInformationResponse.listRoles])
+       if(sessionInformationResponse.strSessionId != undefined && sessionInformationResponse.strSessionId != "" ) getMenu(sessionInformationResponse);
+    }, [sessionInformationResponse])
 
   return (
     <>

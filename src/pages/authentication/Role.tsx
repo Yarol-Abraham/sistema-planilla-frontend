@@ -2,7 +2,7 @@ import { Template } from "../../components/authentication/Template";
 import {Button, FormGroup, Input, Label} from "reactstrap";
 import { useAuthenticationAction } from "../../hooks/UseAuthentication";
 import { useState } from "react";
-import { ListRole } from "../../context/inteface/sessionInformation";
+import { ListRole } from "../../context/inteface/sessionInformation/sessionInformation";
 import { SUCCESS } from "../../utils/Methods";
 import { useNavigate } from 'react-router-dom';
 

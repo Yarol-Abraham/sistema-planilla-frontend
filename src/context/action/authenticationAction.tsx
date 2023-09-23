@@ -2,12 +2,12 @@ import { ReactNode, useEffect, useReducer } from "react";
 
 import { AuthenticationContext } from "../AuthenticationContext";
 import AuthenticationReducer from "../reducer/authenticationReducer";
-import { initialState } from "../inteface/sessionInformationProps";
-import { SessionInformationCredential, SessionInformationResponse } from "../inteface/sessionInformation";
-import { SESSIONINFORMATION_SUCCESS } from "../types/authenticationType";
+import { initialState } from "../inteface/sessionInformation/sessionInformationProps";
+import { SessionInformationCredential, SessionInformationResponse } from "../inteface/sessionInformation/sessionInformation";
+import { SESSIONINFORMATION_FAIL, SESSIONINFORMATION_SUCCESS } from "../types/authenticationType";
 import { SUCCESS, ERROR } from "../../utils/Methods";
 
-import request from "../../config/axios";
+import request, { sendSessionIdAuthorization } from "../../config/axios";
 
 interface props {
     children: ReactNode
@@ -26,16 +26,21 @@ const AuthenticationAction: React.FC<props> = (props: props)  =>
     }
 
     // verificar sesion de usuario
-    const getSessionInformation = function ()
+    const getSessionInformation = async function ()
     {
+        let sessionInfomationObject: SessionInformationResponse = initialState.sessionInformationResponse;
         try{
             
             const sessionInfomation = localStorage.getItem("sessionInfomation");
             if(sessionInfomation != null)
             {
-                const sessionInfomationObject: SessionInformationResponse = JSON.parse(sessionInfomation); 
-                if(sessionInfomationObject.strSessionId == undefined) redireccionar();
+                sessionInfomationObject = JSON.parse(sessionInfomation); 
+                if(sessionInfomationObject.strSessionId == undefined ) redireccionar();
                 
+                sendSessionIdAuthorization(request, sessionInfomationObject.strSessionId);
+                await request.get("/tec/user/information");
+                
+
                 dispatch({
                     type: SESSIONINFORMATION_SUCCESS,
                     payload: {
@@ -46,9 +51,33 @@ const AuthenticationAction: React.FC<props> = (props: props)  =>
                 return;
             }
             redireccionar();
-        }catch(error)
+        }catch(error: any)
         {
-            redireccionar();
+            console.log(error);
+            sessionInfomationObject =  initialState.sessionInformationResponse;
+             if(error.response.data.status == 403)
+             {
+                sessionInfomationObject.strResponseCode = ERROR;
+                sessionInfomationObject.strResponseMessage = "SESIÓN CADUCADA, VUELVE A INICIAR SESIÓN";
+                dispatch({
+                    type: SESSIONINFORMATION_FAIL,
+                    payload: {
+                        sessionInformationResponse: initialState.sessionInformationResponse
+                    }
+                });
+                
+                localStorage.removeItem("sessionInfomation");
+
+                setTimeout(()=> {
+                    redireccionar();
+                }, 5000)
+             }
+             else{
+                
+                localStorage.removeItem("sessionInfomation");
+               redireccionar();
+             }   
+            
         }
     }
 
@@ -76,6 +105,12 @@ const AuthenticationAction: React.FC<props> = (props: props)  =>
             console.log("error en: AuthenticationAction.postSessionInformation() " + error);
             sessionInformationResponse.strResponseCode = "-1";
             sessionInformationResponse.strResponseMessage = "LO SENTIMOS, SERVICIO NO DISPONIBLE";
+            dispatch({
+                type: SESSIONINFORMATION_FAIL,
+                payload: {
+                    sessionInformationResponse
+                }
+            });
         }
         return sessionInformationResponse;
     }
