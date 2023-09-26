@@ -1,10 +1,11 @@
 import { UsuarioResponse } from "../sessionInformation/sessionInformation";
-import { UsuarioCreate } from "./user";
+import { ListUsuarioResponse, UsuarioCreate } from "./user";
 
 export interface props {
-    usuarioResponse: UsuarioResponse
-   // usuarioCreate: UsuarioCreate,
-    createUser: ( usuarioCreate: UsuarioCreate, SessionId: string) => void
+    usuarioResponse: UsuarioResponse,
+    listUsuarioResponse: ListUsuarioResponse,
+    createUser: ( usuarioCreate: UsuarioCreate, SessionId: string) => void,
+    listuser: (SessionId: string) => void
 }
 
 export const initialState: props = {
@@ -19,18 +20,12 @@ export const initialState: props = {
             fechaNacimiento: "",
             idGenero: 0
         }
-    },/*
-    usuarioCreate: {
-        nombre: "",
-        apellido: "",
-        correoElectronico: "",
-        telefonoMovil: "",
-        fechaNacimiento: "",
-        idGenero: 0,
-        idUsuario: "",
-        idSucursal: 0,
-        requiereCambiarPassword: 0,
-        fotografia: ""
-    },*/
-    createUser(){}
+    },
+    listUsuarioResponse:{
+        strResponseCode: "",
+        strResponseMessage: "",
+        usuarios: []
+    },
+    createUser(){},
+    listuser(){}
 }

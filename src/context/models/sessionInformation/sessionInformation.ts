@@ -32,5 +32,12 @@ export interface UsuarioResponse {
     telefonoMovil: string
     fechaNacimiento: string
     idGenero: number
+    idUsuario: string
+    idSucursal: number
+    requiereCambiarPassword: number
+    fotografia: string
+    nombreSucursal: string
+    idStatusUsuario: number
   }
+  
   

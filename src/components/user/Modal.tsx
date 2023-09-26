@@ -90,6 +90,7 @@ const CreateModal: FunctionComponent<ICreateModal> = (props) => {
                                 
                                     setTimeout(()=> {
                                         setMessage({ code:resultcreate.strResponseCode, message: resultcreate.strResponseMessage });
+                                        
                                         if(resultcreate.strResponseCode == SUCCESS)
                                         {
                                           //  toggleF();

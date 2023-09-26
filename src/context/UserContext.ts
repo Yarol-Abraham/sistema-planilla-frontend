@@ -3,8 +3,9 @@ import { initialState, props } from "./models/user/userProps";
 
 const UserContext = createContext<props>({
     usuarioResponse: initialState.usuarioResponse,
-    //usuarioCreate: initialState.usuarioCreate,
+    listUsuarioResponse: initialState.listUsuarioResponse,
     createUser() {},
+    listuser(){}
 });
 
 export default UserContext;

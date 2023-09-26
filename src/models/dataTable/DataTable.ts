@@ -1,11 +1,17 @@
 export interface DataColum {
-    Nombre:     string;
-    Apellido:   string;
-    Correo:     string;
-    Telefono:   string;
-    Sucursal:   string;
-    Acciones:   string;
-};
+    nombre: string
+    apellido: string
+    correoElectronico: string
+    telefonoMovil: string
+    fechaNacimiento: string
+    idGenero: number
+    idUsuario: string
+    idSucursal: number
+    requiereCambiarPassword: number
+    fotografia: any
+    nombreSucursal: string
+    idStatusUsuario: number
+  }
 
 export interface DataColumBitacora {
     Nombre_Bitacora: string;

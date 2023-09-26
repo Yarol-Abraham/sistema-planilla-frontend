@@ -35,7 +35,13 @@ export const initialState: props = {
             correoElectronico: "",
             telefonoMovil: "",
             fechaNacimiento: "",
-            idGenero: 0
+            idGenero: 0,
+            idUsuario: "",
+            idSucursal: 0,
+            requiereCambiarPassword: 0,
+            fotografia: "",
+            nombreSucursal: "",
+            idStatusUsuario: 0
         }
     },
     getSessionInformation: function(){},

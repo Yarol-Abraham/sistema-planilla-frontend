@@ -1,5 +1,5 @@
 import { Reducer } from "react";
-import { ACTION, CREATE_FAIL, CREATE_SUCCESS } from "../../types/user/userTypes";
+import { ACTION, CREATE_FAIL, CREATE_SUCCESS, LIST_USER_FAIL, LIST_USER_SUCCESS } from "../../types/user/userTypes";
 import { props } from "../../models/user/userProps";
 
 const UserReducer: Reducer<props, ACTION> = (state: props, action: ACTION)=> {
@@ -12,6 +12,13 @@ const UserReducer: Reducer<props, ACTION> = (state: props, action: ACTION)=> {
                 ...state,
                 usuarioResponse: action.payload.usuarioResponse
             }
+
+        case LIST_USER_FAIL:    
+        case LIST_USER_SUCCESS:
+        return {
+            ...state,
+            listUsuarioResponse: action.payload.listUsuarioResponse
+        }
 
         default:
             return state;
