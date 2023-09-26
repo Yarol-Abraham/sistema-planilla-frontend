@@ -1,11 +1,19 @@
+import { UsuarioResponse } from "../../models/sessionInformation/sessionInformation";
 
-export interface UsuarioCreate {
-    nombre: string
-    apellido: string
-    correoElectronico: string
-    telefonoMovil: string
-    fechaNacimiento: string
-    idGenero: number
-    idSucursal: number
-}
-  
+export const CREATE_SUCCESS = "CREATE_SUCCESS";
+export const CREATE_FAIL = "CREATE_FAIL";
+
+export type ACTION = |
+    {
+        type: "CREATE_SUCCESS",
+        payload: {
+            usuarioResponse: UsuarioResponse
+        }
+    }
+    |
+    {
+        type: "CREATE_FAIL",
+        payload: {
+            usuarioResponse: UsuarioResponse
+        }
+    }
