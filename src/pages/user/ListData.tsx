@@ -1,6 +1,8 @@
-import { FunctionComponent, useState } from "react";
+import { FunctionComponent, useEffect, useState } from "react";
 import { Button, Card, CardBody, Col } from "reactstrap";
 import DataTable, { TableColumn  } from 'react-data-table-component';
+
+import { useMenuAction } from "../../hooks/UseMenu";
 
 import CreateModal from "../../components/user/Modal";
 import { ConfirmModal } from "../../components/modals/ConfirmModal";
@@ -9,75 +11,27 @@ import { ConfirmModal } from "../../components/modals/ConfirmModal";
 import { DataColum } from "../../models/dataTable/DataTable";
 import { MODE_ACTION } from "../../models/user/CreateModal";
 
+import { useLocation } from "react-router-dom";
 
 type TableHeader = TableColumn<DataColum>[];
 
 const ListData: FunctionComponent<{}> = () => 
 {
-    
-    const [ headers, setHeaders ] = useState<TableHeader>( [
-        {
-            name: "Nombre",
-            selector: row => row.Nombre,
-            sortable: true,
-        },
-        {
-            name: "Apellido",
-            selector:  row => row.Apellido,
-            sortable: true,
-        },
-        {
-            name: "Correo",
-            selector: row => row.Correo,
-            sortable: true,
-        },
-        {
-            name: "Telefono",
-            selector:  row => row.Telefono,
-            sortable: true,
-        },
-        {
-            name: "Sucursal",
-            selector:  row => row.Sucursal,
-            sortable: true,
-        },
-        {
-            name: "Acciones",
-            cell: (data) => (<>
-                <Button 
-                    className="btn btn-info d-flex justify-content-center mx-1"
-                    onClick={ ()=> 
-                    {
-                        console.log(data);
-                        toggle();
-                    }}
-                >
-                        <i className="ri-edit-box-line p-0"></i>
-                </Button>
-                <Button 
-                    onClick={ ()=> 
-                    {
-                        console.log(data);
-                        toggleConfirm();
-                    }}
-                    className="btn btn-danger mx-1">
-                        <i className="ri-close-circle-line p-0"></i>
-                </Button>
-                <Button 
-                    onClick={ ()=> 
-                    {
-                        console.log(data);
-                        toggleConfirm();
-                    }}
-                    className="btn btn-wargin mx-1">
-                        <i className="ri-checkbox-circle-line p-0"></i>
-                </Button>
-                
-            </>),
-            sortable: true
-        },
-    
-    ]);
+    const location = useLocation();
+    const { menuResponse } = useMenuAction();
+
+    // const [ statusOpciones, setStatusOpciones ] = useState({
+    //     alta : 0,
+    //     baja: 0,
+    //     cambio: 0,
+    //     imprimir: 0,
+    //     exportar: 0,
+    //     nombre: "Usuarios",
+    //     ordenMenu: 0,
+    //     pagina: "user"
+    // });
+
+    const [ headers, setHeaders ] = useState<TableHeader>([]);
 
     const [ data, setData ] = useState( [
         {
@@ -114,6 +68,88 @@ const ListData: FunctionComponent<{}> = () =>
     const [ isOpenConfirm, setisOpenConfirm ] = useState(false);
     const toggleConfirm = ()=> setisOpenConfirm(!isOpenConfirm);
     
+    useEffect(()=> {
+       
+        menuResponse.entModulo.map( modulo => {
+        modulo.menu.map(
+            menu => {
+                menu.opciones.map(
+                    opcion => {
+                        if( opcion.pagina == location.pathname.replace("/", ""))
+                        {
+                            setHeaders([
+                                {
+                                    name: "Nombre",
+                                    selector: row => row.Nombre,
+                                    sortable: true,
+                                },
+                                {
+                                    name: "Apellido",
+                                    selector:  row => row.Apellido,
+                                    sortable: true,
+                                },
+                                {
+                                    name: "Correo",
+                                    selector: row => row.Correo,
+                                    sortable: true,
+                                },
+                                {
+                                    name: "Telefono",
+                                    selector:  row => row.Telefono,
+                                    sortable: true,
+                                },
+                                {
+                                    name: "Sucursal",
+                                    selector:  row => row.Sucursal,
+                                    sortable: true,
+                                },
+                                {
+                                    name: "Acciones",
+                                    cell: (data) => (<>
+                                        <Button 
+                                            className={`btn btn-info d-flex justify-content-center mx-1 ${ opcion.cambio > 0 ? "" : "d-none" } ` }
+                                            onClick={ ()=> 
+                                            {
+                                                console.log(data);
+                                                toggle();
+                                            }}
+                                        >
+                                            <i className="ri-edit-box-line p-0"></i>
+                                        </Button>
+                                        <Button 
+                                            onClick={ ()=> 
+                                            {
+                                                console.log(data);
+                                                toggleConfirm();
+                                            }}
+                                            className={`btn btn-danger mx-1 ${ opcion.baja > 0 ? "" : "d-none" } `}>
+                                                <i className="ri-close-circle-line p-0"></i>
+                                        </Button>
+                                        <Button 
+                                            onClick={ ()=> 
+                                            {
+                                                console.log(data);
+                                                toggleConfirm();
+                                            }}
+                                            className={`btn btn-wargin mx-1 ${ opcion.alta > 0 ? "" : "d-none" } `}>
+                                                <i className="ri-checkbox-circle-line p-0"></i>
+                                        </Button>
+                                        
+                                    </>),
+                                    sortable: true
+                                },
+                            
+                            ])
+                        }
+                    }
+                )
+            }
+        )
+       });
+
+
+    }, [menuResponse.entModulo])
+
     return (
        <>
         <Col sm="12">

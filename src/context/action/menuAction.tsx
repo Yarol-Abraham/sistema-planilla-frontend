@@ -26,7 +26,6 @@ const MenuAction: React.FC<props> = function(props)
 
         try {
             
-          //  const sendRequest = await sendSessionIdAuthorization(request, sessionInformationResponse.strSessionId).get(`/tec/menu/${sessionInformationResponse.intRoleSelect}`);
           sendSessionIdAuthorization(request, sessionInformationResponse.strSessionId);
             const sendRequest = await request.get(`/tec/menu/${sessionInformationResponse.intRoleSelect}`);
             menuresponse = sendRequest.data;

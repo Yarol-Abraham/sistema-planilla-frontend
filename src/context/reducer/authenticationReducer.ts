@@ -21,6 +21,15 @@ const AuthenticationReducer: Reducer<props,ACTION> = (state: props, action: ACTI
             }
 
         case UPDATE_PERFIL:
+            return {
+                ...state,
+                usuarioResponse: action.payload.usuarioResponse,
+                sessionInformationResponse: {
+                    ...state.sessionInformationResponse,
+                    strNombre: action.payload.usuarioResponse.entUsuario.nombre +" "+  action.payload.usuarioResponse.entUsuario.apellido
+                }
+            }
+
         case GET_PERFIL:
             return {
                 ...state,

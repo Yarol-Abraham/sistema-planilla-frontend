@@ -14,10 +14,15 @@ import { TransitionGroup, CSSTransition } from "react-transition-group";
 import { useAuthenticationAction } from '../hooks/UseAuthentication'; 
 import { useMenuAction } from '../hooks/UseMenu';
 
+import { useNavigate } from 'react-router-dom';
+
 const Layout: React.FunctionComponent<ILayoutProps> = (props:ILayoutProps) => {
 
     const { sessionInformationResponse } = useAuthenticationAction();
     const {  getMenu } = useMenuAction();
+
+    const navigate = useNavigate();
+
     const [ collapsed, setCollapse ] = useState(false);
     const [ profile, setProfile  ] = useState(false);
     const [ openMenu, setopenMenu ] = useState(false);
@@ -45,14 +50,24 @@ const Layout: React.FunctionComponent<ILayoutProps> = (props:ILayoutProps) => {
     const getRole = function()
     {
         let role = sessionInformationResponse.listRoles?.filter(el =>  el.idRole == sessionInformationResponse.intRoleSelect );
-        if(role.length > 0) setRole(role[0].nombre);
+      
+        if(role.length > 0)
+        {
+            setRole(role[0].nombre);
+        } // en caso de que no selecciono rol pero tiene sesion activa, redireccionar a seleccionar
+        else {
+            navigate("/auth/role");
+        }
     } 
 
-    useEffect(()=>  getRole(), [sessionInformationResponse.listRoles])
-    
+    useEffect(()=> getRole(), [sessionInformationResponse.listRoles])
+
     useEffect(()=> {
-       if(sessionInformationResponse.strSessionId != undefined && sessionInformationResponse.strSessionId != "" ) getMenu(sessionInformationResponse);
-    }, [sessionInformationResponse])
+       if(sessionInformationResponse.strSessionId != undefined && sessionInformationResponse.strSessionId != "" ) 
+       {
+            getMenu(sessionInformationResponse);
+       };
+    }, [sessionInformationResponse.strSessionId])
 
   return (
     <>

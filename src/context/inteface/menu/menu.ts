@@ -23,4 +23,9 @@ export interface Opcione {
   nombre: string
   ordenMenu: number
   pagina: string
+  alta: number
+  baja: number
+  cambio: number
+  imprimir: number
+  exportar: number
 }

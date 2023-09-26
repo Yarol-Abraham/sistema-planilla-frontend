@@ -15,7 +15,7 @@ const CreateModal: FunctionComponent<ICreateModal> = (props) => {
 
             <Formik
                 initialValues={{
-                    id: 1,
+                    idUsuario: '',
                     nombre: '',
                     apellido: '',
                     idGenero: '0',
@@ -27,10 +27,11 @@ const CreateModal: FunctionComponent<ICreateModal> = (props) => {
                 onSubmit={async (values) => {
                     console.log("guardando datos " + values);
                     await new Promise((resolve) => setTimeout(resolve, 500));
-                    values.id = 1;
+                   // values.id = 1;
                 }}
                 validationSchema={
                     Yup.object().shape({
+                        idUsuario: Yup.string().required("El nombre de usuario es requerido"),
                         nombre: Yup.string().required("El nombre es requerido"),
                         apellido: Yup.string().required("El apellido es requerido"),
                         correoElectronico: Yup.string().email("El correo electrónico no es válido").required("El correo electrónico es requerido"),
@@ -50,14 +51,30 @@ const CreateModal: FunctionComponent<ICreateModal> = (props) => {
                     errors,
                     handleChange,
                     handleBlur,
-                    handleSubmit,
-                    isSubmitting
+                    handleSubmit
                 }) => (
                     <form noValidate onSubmit={handleSubmit}>
                         <ModalBody>
                             <Row>
                                 <Col md={6} className="mb-2">
                                     <img src="/src/assets/images/usuario_create.png" className="img-thumbnail" alt="..." style={{ width: "10rem", height: "10rem" }} />
+                                </Col>
+                                <Col md={6}>
+                                    <FormGroup>
+                                        <Label for="validationDefault00" className='mb-1'>Usuario</Label>
+                                        <Input
+                                            type="text"
+                                            id="idUsuario"
+                                            className={`form-control ${errors.idUsuario ? 'is-invalid' : ''}`}
+                                            required
+                                            placeholder="Nombre de usuario"
+                                            onChange={handleChange}
+                                            onBlur={handleBlur}
+                                            value={values.idUsuario}
+                                            style={{ height: '40px' }}
+                                        />
+                                        {errors.idUsuario && <div className="invalid-feedback">{errors.idUsuario}</div>}
+                                    </FormGroup>
                                 </Col>
                                 <Col md={6}>
                                     <FormGroup>

@@ -17,7 +17,6 @@ import { MODE_ACTION } from '../../models/perfil/CreateModal';
 import CreateModal from "../../components/perfil/Modal";
 
 import { useAuthenticationAction } from '../../hooks/UseAuthentication';
-import { EntUsuario } from '../../context/inteface/sessionInformation/sessionInformation';
 
 export default function Perfil() {
 
@@ -44,18 +43,18 @@ export default function Perfil() {
                             </CardHeader>
                             <CardBody className={'iq-card-body '}>
                             <Row>
-                            <Col lg={5}>
-                                <FormGroup>
-                                    <Label for='nombre'>Nombre</Label>
-                                    <Input
-                                        type='text'
-                                        name='nombre'
-                                        id='nombre'
-                                        value={ usuarioResponse.entUsuario.nombre}
-                                       
-                                        disabled
-                                    />
-                                </FormGroup>
+                                <Col lg={5}>
+                                    <FormGroup>
+                                        <Label for='nombre'>Nombre</Label>
+                                        <Input
+                                            type='text'
+                                            name='nombre'
+                                            id='nombre'
+                                            value={ usuarioResponse.entUsuario.nombre}
+                                        
+                                            disabled
+                                        />
+                                    </FormGroup>
                                 </Col >
                                 <Col lg={5}>
                                 <FormGroup>

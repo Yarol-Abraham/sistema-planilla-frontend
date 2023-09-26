@@ -39,7 +39,6 @@ const AuthenticationAction: React.FC<props> = (props: props)  =>
                 
                 sendSessionIdAuthorization(request, sessionInfomationObject.strSessionId);
                 await request.get("/tec/user/information");
-                
 
                 dispatch({
                     type: SESSIONINFORMATION_SUCCESS,
@@ -174,7 +173,7 @@ const AuthenticationAction: React.FC<props> = (props: props)  =>
             sendSessionIdAuthorization(request, sessionInformationResponse.strSessionId);
             const sendRequest = await request.post("/tec/user/update", {  ...usuarioResponse.entUsuario, idUsuario: sessionInformationResponse.strIdUsuario  });
             getResponse = sendRequest.data;
-            getResponse.strResponseMessage = "DATOS ACTUALIZADOS CORRECTAMENTE";
+            
             dispatch({
                 type: UPDATE_PERFIL,
                 payload: {
@@ -186,7 +185,7 @@ const AuthenticationAction: React.FC<props> = (props: props)  =>
         {
             console.log(error);
             getResponse.strResponseCode = ERROR;
-            getResponse.strResponseMessage = "Ha ocurrido un error inesperado";
+            getResponse.strResponseMessage = "ERROR AL ACTUALIZAR DATOS, VUELVE A INTENTARLO MAS TARDE";
             dispatch({
                 type: UPDATE_PERFIL,
                 payload: {
@@ -196,12 +195,6 @@ const AuthenticationAction: React.FC<props> = (props: props)  =>
         }
         return getResponse;
     } 
-
-    // mostrar lista de usuarios
-
-
-    // mostrar lista de roles
-
 
     useEffect(()=> {
         if(!IGNORE_PATH.includes(window.location.pathname)) getSessionInformation();
