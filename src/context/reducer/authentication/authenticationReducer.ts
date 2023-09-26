@@ -4,9 +4,9 @@ import {
     GET_PERFIL,
     ACTION,
     UPDATE_PERFIL
-} from "../types/authenticationType";
+} from "../../types/authentication/authenticationType";
 
-import { props } from "../inteface/sessionInformation/sessionInformationProps";
+import { props } from "../../models/sessionInformation/sessionInformationProps";
 import { Reducer } from "react";
 
 const AuthenticationReducer: Reducer<props,ACTION> = (state: props, action: ACTION) => {

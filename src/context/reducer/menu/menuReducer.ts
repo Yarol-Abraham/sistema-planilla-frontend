@@ -1,5 +1,5 @@
-import { props } from "../inteface/menu/menuProps";
-import { ACTION, MENU_FAIL, MENU_SUCCESS } from "../types/menuType";
+import { props } from "../../models/menu/menuProps";
+import { ACTION, MENU_FAIL, MENU_SUCCESS } from "../../types/menu/menuType";
 
 
 const MenuReducer: React.Reducer<props, ACTION> = (state: props, action: ACTION) => {

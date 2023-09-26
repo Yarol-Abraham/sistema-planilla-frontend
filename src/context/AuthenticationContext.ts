@@ -1,5 +1,5 @@
 import { createContext } from "react";
-import { props, initialState } from './inteface/sessionInformation/sessionInformationProps';
+import { props, initialState } from './models/sessionInformation/sessionInformationProps';
 
 export const AuthenticationContext = createContext<props>({
     sessionInformationResponse: initialState.sessionInformationResponse,

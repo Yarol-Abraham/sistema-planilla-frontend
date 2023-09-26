@@ -4,7 +4,7 @@ import { Formik } from 'formik';
 import * as Yup from "yup";
 import { ICreateModal, MODE_ACTION } from "../../models/perfil/CreateModal";
 import { useAuthenticationAction } from "../../hooks/UseAuthentication";
-import { EntUsuario } from "../../context/inteface/sessionInformation/sessionInformation";
+import { EntUsuario } from "../../context/models/sessionInformation/sessionInformation";
 import { SUCCESS } from "../../utils/Methods";
 
 const CreateModal: FunctionComponent<ICreateModal> = (props) => {

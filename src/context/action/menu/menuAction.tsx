@@ -1,14 +1,14 @@
 import { ReactNode, useReducer } from "react"
 
-import MenuContext from "../MenuContext"
-import MenuReducer from "../reducer/menuReducer";
-import { initialState } from "../inteface/menu/menuProps";
+import MenuContext from "../../MenuContext"
+import MenuReducer from "../../reducer/menu/menuReducer";
+import { initialState } from "../../models/menu/menuProps";
 
-import request, { sendSessionIdAuthorization } from "../../config/axios";
-import { MenuResponse } from "../inteface/menu/menu";
+import request, { sendSessionIdAuthorization } from "../../../config/axios";
+import { MenuResponse } from "../../models/menu/menu";
 
-import { MENU_FAIL, MENU_SUCCESS } from "../types/menuType";
-import { SessionInformationResponse } from "../inteface/sessionInformation/sessionInformation";
+import { MENU_FAIL, MENU_SUCCESS } from "../../types/menu/menuType";
+import { SessionInformationResponse } from "../../models/sessionInformation/sessionInformation";
 
 
 interface props {

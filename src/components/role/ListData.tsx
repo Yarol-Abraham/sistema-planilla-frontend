@@ -1,5 +1,5 @@
 import { FunctionComponent, useState } from "react";
-import { Button, Card, CardBody, Col } from "reactstrap";
+import {  Card, CardBody, Col } from "reactstrap";
 import DataTable, { TableColumn  } from 'react-data-table-component';
 
 import { ConfirmModal } from "../../components/modals/ConfirmModal";

@@ -1,5 +1,5 @@
 import { FunctionComponent } from "react";
-import { Button, Col, FormGroup, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader, Row } from 'reactstrap';
+import { Button, Modal, ModalFooter, ModalHeader } from 'reactstrap';
 import { Formik } from 'formik';
 import * as Yup from "yup";
 import { ICreateModal } from "../../models/auditoria/CreateModal";

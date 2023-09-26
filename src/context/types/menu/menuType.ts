@@ -1,4 +1,4 @@
-import { MenuResponse } from "../inteface/menu/menu";
+import { MenuResponse } from "../../models/menu/menu";
 
 export const MENU_SUCCESS  = "MENU_SUCCESS";
 export const MENU_FAIL = "MENU_FAIL";

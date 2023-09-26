@@ -56,7 +56,10 @@ const Layout: React.FunctionComponent<ILayoutProps> = (props:ILayoutProps) => {
             setRole(role[0].nombre);
         } // en caso de que no selecciono rol pero tiene sesion activa, redireccionar a seleccionar
         else {
-            navigate("/auth/role");
+            if(sessionInformationResponse.listRoles.length > 0)
+            {
+                navigate("/auth/role");
+            }
         }
     } 
 

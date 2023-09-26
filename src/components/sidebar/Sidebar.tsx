@@ -1,8 +1,6 @@
 import { Link } from "react-router-dom";
 // components
 import Menu from "../menu/Menu";
-// data
-import sidebarItems from './sidebar.json';
 // models
 import { ISidebarProps } from "../../models/sidebar/Sidebar";
 
@@ -32,7 +30,7 @@ export default function Sidebar(props: ISidebarProps)
             </div>
             <div id="sidebar-scrollbar" style={{ height: "85vh" }}>
                 <nav className="iq-sidebar-menu">
-                    <Menu items={sidebarItems} className={"iq-menu"} visible={true} id="iq-sidebar-toggle" />
+                    <Menu items={[]} className={"iq-menu"} visible={true} id="iq-sidebar-toggle" />
                 </nav>
             </div>
         </div>

@@ -20,17 +20,6 @@ const ListData: FunctionComponent<{}> = () =>
     const location = useLocation();
     const { menuResponse } = useMenuAction();
 
-    // const [ statusOpciones, setStatusOpciones ] = useState({
-    //     alta : 0,
-    //     baja: 0,
-    //     cambio: 0,
-    //     imprimir: 0,
-    //     exportar: 0,
-    //     nombre: "Usuarios",
-    //     ordenMenu: 0,
-    //     pagina: "user"
-    // });
-
     const [ headers, setHeaders ] = useState<TableHeader>([]);
 
     const [ data, setData ] = useState( [

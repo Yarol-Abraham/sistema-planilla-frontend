@@ -1,13 +1,13 @@
 import { ReactNode, useEffect, useReducer } from "react";
 
-import { AuthenticationContext } from "../AuthenticationContext";
-import AuthenticationReducer from "../reducer/authenticationReducer";
-import { initialState } from "../inteface/sessionInformation/sessionInformationProps";
-import { SessionInformationCredential, SessionInformationResponse, UsuarioResponse } from "../inteface/sessionInformation/sessionInformation";
-import { GET_PERFIL, SESSIONINFORMATION_FAIL, SESSIONINFORMATION_SUCCESS, UPDATE_PERFIL } from "../types/authenticationType";
-import { SUCCESS, ERROR } from "../../utils/Methods";
+import { AuthenticationContext } from "../../AuthenticationContext";
+import AuthenticationReducer from "../../reducer/authentication/authenticationReducer";
+import { initialState } from "../../models/sessionInformation/sessionInformationProps";
+import { SessionInformationCredential, SessionInformationResponse, UsuarioResponse } from "../../models/sessionInformation/sessionInformation";
+import { GET_PERFIL, SESSIONINFORMATION_FAIL, SESSIONINFORMATION_SUCCESS, UPDATE_PERFIL } from "../../types/authentication/authenticationType";
+import { SUCCESS, ERROR } from "../../../utils/Methods";
 
-import request, { sendSessionIdAuthorization } from "../../config/axios";
+import request, { sendSessionIdAuthorization } from "../../../config/axios";
 
 interface props {
     children: ReactNode

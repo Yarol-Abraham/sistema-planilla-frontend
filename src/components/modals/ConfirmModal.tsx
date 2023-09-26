@@ -10,14 +10,7 @@ export const ConfirmModal: FunctionComponent<IModalConfirm> = (props) => {
     <Modal isOpen={isOpen} toggle={() => toggleF()} className="modal-dialog-centered">
       <ModalHeader toggle={() => toggleF()}>Confirmacion</ModalHeader>
       <ModalBody>
-        {/* <Alert color="secondary" className={"text-white bg-secondary"}>
-              <div className="iq-alert-icon">
-                  <i className="ri-information-line" />
-              </div>
-              A simple secondary alert with <Link to="/dashboard1/alert" className="alert-link">an example link</Link>. Give it a click if you like.
-            </Alert> */}
-
-
+       
         <img src={"/src/assets/images/solicitud.png"} className="mx-auto d-block" alt="Responsive image" />
       
             <p className="text-center mt-2">¿Estas seguro de realizar esta acción?</p>
