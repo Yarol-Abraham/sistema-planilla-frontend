@@ -10,7 +10,8 @@ export type ACTION = |
     {
         type: "CREATE_SUCCESS",
         payload: {
-            usuarioResponse: UsuarioResponse
+            usuarioResponse: UsuarioResponse,
+            listUsuarioResponse: ListUsuarioResponse
         }
     }
     |

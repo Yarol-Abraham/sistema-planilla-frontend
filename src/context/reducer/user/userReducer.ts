@@ -1,16 +1,21 @@
 import { Reducer } from "react";
 import { ACTION, CREATE_FAIL, CREATE_SUCCESS, LIST_USER_FAIL, LIST_USER_SUCCESS } from "../../types/user/userTypes";
-import { props } from "../../models/user/userProps";
+import { props, initialState } from "../../models/user/userProps";
 
 const UserReducer: Reducer<props, ACTION> = (state: props, action: ACTION)=> {
 
     switch(action.type)
     {
         case CREATE_FAIL:
-        case CREATE_SUCCESS:
             return {
                 ...state,
                 usuarioResponse: action.payload.usuarioResponse
+            }
+        case CREATE_SUCCESS:
+            return {
+                ...state,
+                usuarioResponse: action.payload.usuarioResponse,
+                listUsuarioResponse: action.payload.listUsuarioResponse
             }
 
         case LIST_USER_FAIL:    

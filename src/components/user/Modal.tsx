@@ -11,7 +11,7 @@ import { SUCCESS } from "../../utils/Methods";
 
 const CreateModal: FunctionComponent<ICreateModal> = (props) => {
 
-    const { createUser } = useUser();
+    const { createUser, listUsuarioResponse } = useUser();
     const { sessionInformationResponse  } = useAuthenticationAction();
 
     const [ message, setMessage ] = useState({ code: "", message: "" });
@@ -86,7 +86,7 @@ const CreateModal: FunctionComponent<ICreateModal> = (props) => {
                                 
                                 if(mode == MODE_ACTION.CREATE)
                                 {
-                                    let resultcreate: any = await createUser(usuarioCreate, sessionInformationResponse.strSessionId);
+                                    let resultcreate: any = await createUser(usuarioCreate, listUsuarioResponse, sessionInformationResponse.strSessionId);
                                 
                                     setTimeout(()=> {
                                         setMessage({ code:resultcreate.strResponseCode, message: resultcreate.strResponseMessage });

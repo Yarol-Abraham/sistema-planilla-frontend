@@ -18,7 +18,7 @@ const UserAction: React.FC<props> = function(props)
 
     const [ state, dispatch ] = useReducer(UserReducer, initialState);
 
-    const createUser = async function( usuarioCreate: UsuarioCreate, SessionId: string) : Promise<UsuarioResponse> 
+    const createUser = async function( usuarioCreate: UsuarioCreate, listUsuarioResponse: ListUsuarioResponse, SessionId: string) : Promise<UsuarioResponse> 
     {
         let usuarioResponse: UsuarioResponse = initialState.usuarioResponse;
         try
@@ -26,13 +26,14 @@ const UserAction: React.FC<props> = function(props)
             sendSessionIdAuthorization(request, SessionId);
             const sendRequest = await request.post("/tec/user/create", usuarioCreate);
             usuarioResponse =  sendRequest.data;
-            console.log(usuarioResponse);
+            listUsuarioResponse.usuarios = [ ...listUsuarioResponse.usuarios, usuarioResponse.entUsuario];
             if(usuarioResponse.strResponseCode == SUCCESS)
             {
                 dispatch({
                     type: CREATE_SUCCESS,
                     payload: {
-                        usuarioResponse
+                        usuarioResponse,
+                        listUsuarioResponse
                     }
                 });
             }

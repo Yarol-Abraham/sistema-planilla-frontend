@@ -4,7 +4,7 @@ import { ListUsuarioResponse, UsuarioCreate } from "./user";
 export interface props {
     usuarioResponse: UsuarioResponse,
     listUsuarioResponse: ListUsuarioResponse,
-    createUser: ( usuarioCreate: UsuarioCreate, SessionId: string) => void,
+    createUser: ( usuarioCreate: UsuarioCreate, listUsuarioResponse: ListUsuarioResponse, SessionId: string) => void,
     listuser: (SessionId: string) => void
 }
 
@@ -18,7 +18,13 @@ export const initialState: props = {
             correoElectronico: "",
             telefonoMovil: "",
             fechaNacimiento: "",
-            idGenero: 0
+            idGenero: 0,
+            idUsuario: "",
+            idSucursal: 0,
+            requiereCambiarPassword: 0,
+            fotografia: "",
+            nombreSucursal: "",
+            idStatusUsuario: 0
         }
     },
     listUsuarioResponse:{
