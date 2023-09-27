@@ -1,4 +1,4 @@
-import { FunctionComponent, useState } from "react";
+import { FunctionComponent, useState, useEffect } from "react";
 import { Button, Card, CardBody, Col } from "reactstrap";
 import DataTable, { TableColumn  } from 'react-data-table-component';
 
@@ -9,71 +9,78 @@ import { ConfirmModal } from "../../components/modals/ConfirmModal";
 import { DataColumRol } from "../../models/dataTable/DataTable";
 import { MODE_ACTION } from "../../models/role/CreateModal";
 
-
+import { useRole } from "../../hooks/UseRole";
+import { useAuthenticationAction } from "../../hooks/UseAuthentication";
+import { useMenuAction } from "../../hooks/UseMenu";
 type TableHeader = TableColumn<DataColumRol>[];
 
 const ListData: FunctionComponent<{}> = () => 
 {
-    
-    const [ headers, setHeaders ] = useState<TableHeader>( [
-        {
-            name: "Nombre Rol",
-            selector: row => row.Nombre_Rol,
-            sortable: true,
-        },
-        
-        {
-            name: "Acciones",
-            cell: (data) => (<>
-                <Button 
-                    className="btn btn-info d-flex justify-content-center mx-1"
-                    onClick={ ()=> 
-                    {
-                        console.log(data);
-                        toggle();
-                    }}
-                >
-                        <i className="ri-edit-box-line p-0"></i>
-                </Button>
-                <Button 
-                    onClick={ ()=> 
-                    {
-                        console.log(data);
-                        toggleConfirm();
-                    }}
-                    className="btn btn-danger mx-1">
-                        <i className="ri-close-circle-line p-0"></i>
-                </Button>
-                <Button 
-                    onClick={ ()=> 
-                    {
-                        console.log(data);
-                        toggleConfirm();
-                    }}
-                    className="btn btn-wargin mx-1">
-                        <i className="ri-checkbox-circle-line p-0"></i>
-                </Button>
-                
-            </>),
-            sortable: true
-        },
-    
-    ]);
+    const { sessionInformationResponse } = useAuthenticationAction();
+    const { getRols, roleListResponse } = useRole();
+    const { menuResponse } = useMenuAction();
 
-    const [ data, setData ] = useState( [
-        {
-            "Nombre_Rol": "Admin",
-        },
-     
-    ]      
-    )
+    const [ headers, setHeaders ] = useState<TableHeader>([]);
+    const [ data, setData ] = useState<any>([])
  
     const [ isOpen, setisOpen ] = useState(false);
     const toggle = ()=> setisOpen(!isOpen);
 
     const [ isOpenConfirm, setisOpenConfirm ] = useState(false);
     const toggleConfirm = ()=> setisOpenConfirm(!isOpenConfirm);
+    useEffect(()=> {
+        menuResponse.entModulo.map( modulo => {
+        modulo.menu.map(
+            menu => {
+                menu.opciones.map(
+                    opcion => {
+                        if( opcion.pagina == location.pathname.replace("/", ""))
+                        {
+                            setHeaders([
+                                {
+                                    name: "Nombre",
+                                    selector: row => row.nombre,
+                                    sortable: true,
+                                },
+                                
+                                {
+                                    name: "Acciones",
+                                    cell: (data) => (<>
+                                        <Button 
+                                            className={`btn btn-info d-flex justify-content-center mx-1 ${ opcion.cambio > 0 ? "" : "d-none" } ` }
+                                            onClick={ ()=> 
+                                            {
+                                                console.log(data);
+                                                toggle();
+                                            }}
+                                        >
+                                            <i className="ri-edit-box-line p-0"></i>
+                                        </Button>
+                                        
+                                        
+                                    </>),
+                                    sortable: true
+                                },
+                            
+                            ]);
+                            if(sessionInformationResponse.strSessionId != "")
+                            {
+                                getRols(sessionInformationResponse.strSessionId);
+                            }
+                        }
+                    }
+                )
+            }
+        )
+       });
+    }, [menuResponse.entModulo])
     
+    
+    useEffect(()=> {
+        if(roleListResponse.roles.length > 0 ) setData(roleListResponse.roles);
+    }, [roleListResponse.roles])
+
+
     return (
        <>
         <Col sm="12">
@@ -94,17 +101,5 @@ const ListData: FunctionComponent<{}> = () =>
     );
 
 }
-// const handleEdit = (role) => {
-//     console.log("Editar:", role);
-
-//     // Resto de la lógica para editar
-// };
-
-// const handleDelete = (role) => {
-//     console.log("Eliminar:", role);
-//     // Resto de la lógica para eliminar
-// };
-
-
 
 export default  ListData;

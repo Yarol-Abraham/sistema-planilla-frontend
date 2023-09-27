@@ -26,5 +26,6 @@ export interface DataColumModulo {
 };
 
 export interface DataColumRol {
-    Nombre_Rol: string;
+    idRole: number,
+    nombre: string    
 };

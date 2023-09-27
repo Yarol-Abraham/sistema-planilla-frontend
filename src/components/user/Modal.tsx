@@ -71,21 +71,22 @@ const CreateModal: FunctionComponent<ICreateModal> = (props) => {
                                 
                                 setSubmitted(true);
                                 
-                                const usuarioCreate: UsuarioCreate = {
-                                    nombre: values.nombre,
-                                    apellido: values.apellido,
-                                    correoElectronico: values.correoElectronico,
-                                    telefonoMovil: values.telefonoMovil,
-                                    fechaNacimiento: values.fechaNacimiento,
-                                    idGenero: +values.idGenero,
-                                    idUsuario: values.idUsuario,
-                                    idSucursal: +values.idSucursal,
-                                    requiereCambiarPassword: 0,
-                                    fotografia: ""
-                                }
                                 
                                 if(mode == MODE_ACTION.CREATE)
                                 {
+                                    const usuarioCreate: UsuarioCreate = {
+                                        nombre: values.nombre,
+                                        apellido: values.apellido,
+                                        correoElectronico: values.correoElectronico,
+                                        telefonoMovil: values.telefonoMovil,
+                                        fechaNacimiento: values.fechaNacimiento,
+                                        idGenero: +values.idGenero,
+                                        idUsuario: values.idUsuario,
+                                        idSucursal: +values.idSucursal,
+                                        requiereCambiarPassword: 0,
+                                        fotografia: ""
+                                    }
+                                    
                                     let resultcreate: any = await createUser(usuarioCreate, listUsuarioResponse, sessionInformationResponse.strSessionId);
                                 
                                     setTimeout(()=> {
@@ -273,8 +274,7 @@ const CreateModal: FunctionComponent<ICreateModal> = (props) => {
                                                         style={{ height: '40px' }}
                                                     >
                                                         <option value="">-- Seleccionar --</option>
-                                                        <option value="1">Sucursal 1</option>
-                                                        <option value="2">Sucursal 2</option>
+                                                        <option value="1">Oficinas Centrales</option>
                                                     </Input>
                                                     {errors.idSucursal && <div className="invalid-feedback">{errors.idSucursal}</div>}
                                                 </FormGroup>
