@@ -1,6 +1,6 @@
 import { Reducer } from "react";
 import { ACTION, CREATE_FAIL, CREATE_SUCCESS, LIST_USER_FAIL, LIST_USER_SUCCESS } from "../../types/user/userTypes";
-import { props, initialState } from "../../models/user/userProps";
+import { props } from "../../models/user/userProps";
 
 const UserReducer: Reducer<props, ACTION> = (state: props, action: ACTION)=> {
 
