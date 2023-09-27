@@ -7,7 +7,7 @@ import { UsuarioResponse } from "../../models/sessionInformation/sessionInformat
 import request, { sendSessionIdAuthorization } from "../../../config/axios";
 import { ListUsuarioResponse, UsuarioCreate } from "../../models/user/user";
 import { SUCCESS } from "../../../utils/Methods";
-import { CREATE_FAIL, CREATE_SUCCESS, LIST_USER_FAIL, LIST_USER_SUCCESS } from "../../types/user/userTypes";
+import { CREATE_FAIL, CREATE_SUCCESS, DISABLE_FAIL, DISABLE_USER, LIST_USER_FAIL, LIST_USER_SUCCESS } from "../../types/user/userTypes";
 
 interface props {
     children: ReactNode
@@ -61,6 +61,47 @@ const UserAction: React.FC<props> = function(props)
         return usuarioResponse;
     }
 
+    const deleteUser = async function(idUsuario: string, listUsuarioResponse: ListUsuarioResponse, SessionId: string) 
+    {
+        let usuarioResponse: UsuarioResponse = initialState.usuarioResponse;
+        try{
+            sendSessionIdAuthorization(request, SessionId);
+            const sendRequest = await request.delete("/tec/user/delete/"+idUsuario);
+            usuarioResponse = sendRequest.data;
+            // listUsuarioResponse.usuarios = [ ...listUsuarioResponse.usuarios, usuarioResponse.entUsuario  ]
+            listUsuarioResponse.usuarios =  listUsuarioResponse.usuarios.map( el => el.idUsuario == usuarioResponse.entUsuario.idUsuario ? usuarioResponse.entUsuario : el );
+            if(usuarioResponse.strResponseCode == SUCCESS)
+            {
+                dispatch({
+                    type: DISABLE_USER,
+                    payload: {
+                        usuarioResponse,
+                        listUsuarioResponse
+                    }
+                });
+            }
+            else{
+                
+                dispatch({
+                    type: DISABLE_FAIL,
+                    payload: {
+                        usuarioResponse
+                    }
+                });
+            }
+        }   
+        catch(error)
+        {   
+            console.log(error);
+            dispatch({
+                type: DISABLE_FAIL,
+                payload: {
+                    usuarioResponse
+                }
+            });
+        } 
+    }
+
     const listuser = async function(SessionId: string) 
     {
         let listUsuarioResponse: ListUsuarioResponse = initialState.listUsuarioResponse;
@@ -105,6 +146,7 @@ const UserAction: React.FC<props> = function(props)
                 usuarioResponse: state.usuarioResponse,
                 listUsuarioResponse: state.listUsuarioResponse,
                 createUser,
+                deleteUser,
                 listuser
             }}
         >

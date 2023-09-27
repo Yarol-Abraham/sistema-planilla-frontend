@@ -22,11 +22,12 @@ const ListData: FunctionComponent<{}> = () =>
     const location = useLocation();
 
     const { menuResponse } = useMenuAction();
-    const { listuser, listUsuarioResponse } = useUser();
+    const {  listuser, deleteUser, listUsuarioResponse } = useUser();
     const { sessionInformationResponse } = useAuthenticationAction();
 
     const [ headers, setHeaders ] = useState<TableHeader>([]);
     const [ data, setData ] = useState<any>([]);
+    const [ id, setId ] = useState("");
 
     const [ isOpen, setisOpen ] = useState(false);
     const toggle = ()=> setisOpen(!isOpen);
@@ -86,6 +87,7 @@ const ListData: FunctionComponent<{}> = () =>
                                             onClick={ ()=> 
                                             {
                                                 console.log(data);
+                                                setId(data.idUsuario);
                                                 toggleConfirm();
                                             }}
                                             className={`btn btn-danger mx-1 ${ opcion.baja > 0 ? "" : "d-none" } `}>
@@ -138,7 +140,7 @@ const ListData: FunctionComponent<{}> = () =>
             </Card>
         </Col>
         <CreateModal isOpen={isOpen} toggleF={toggle} mode={MODE_ACTION.UPDATE} />
-        <ConfirmModal isOpen={isOpenConfirm} toggleF={toggleConfirm} />
+        <ConfirmModal isOpen={isOpenConfirm} toggleF={toggleConfirm} action={() => deleteUser(id, listUsuarioResponse, sessionInformationResponse.strSessionId)} />
        </>
     );
 

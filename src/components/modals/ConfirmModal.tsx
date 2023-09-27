@@ -4,7 +4,7 @@ import { IModalConfirm } from "../../models/modals/Modals";
 
 export const ConfirmModal: FunctionComponent<IModalConfirm> = (props) => {
 
-  const { isOpen, toggleF } = props;
+  const { isOpen, toggleF, action } = props;
 
   return (
     <Modal isOpen={isOpen} toggle={() => toggleF()} className="modal-dialog-centered">
@@ -17,7 +17,11 @@ export const ConfirmModal: FunctionComponent<IModalConfirm> = (props) => {
 
       </ModalBody>
       <ModalFooter>
-        <Button color="primary" onClick={() => toggleF()}>Si, estoy seguro</Button>{' '}
+        <Button color="primary" onClick={() => {
+          action();
+          toggleF();
+
+        }}>Si, estoy seguro</Button>{' '}
         <Button color="secondary" onClick={() => toggleF()}>Cancelar</Button>
       </ModalFooter>
     </Modal>

@@ -6,6 +6,9 @@ export const CREATE_FAIL = "CREATE_FAIL";
 export const LIST_USER_SUCCESS = "LIST_USER_SUCCESS";
 export const LIST_USER_FAIL = "LIST_USER_FAIL";
 
+export const DISABLE_USER = "DISABLE_USER";
+export const DISABLE_FAIL = "DISABLE_FAIL";
+
 export type ACTION = |
     {
         type: "CREATE_SUCCESS",
@@ -33,5 +36,18 @@ export type ACTION = |
         type: "LIST_USER_FAIL",
         payload: {
             listUsuarioResponse: ListUsuarioResponse
+        }
+    }
+    | {
+        type: "DISABLE_USER",
+        payload: {
+            usuarioResponse: UsuarioResponse,
+            listUsuarioResponse: ListUsuarioResponse
+        }
+    }
+    | {
+        type: "DISABLE_FAIL",
+        payload: {
+            usuarioResponse: UsuarioResponse
         }
     }

@@ -5,6 +5,7 @@ export interface props {
     usuarioResponse: UsuarioResponse,
     listUsuarioResponse: ListUsuarioResponse,
     createUser: ( usuarioCreate: UsuarioCreate, listUsuarioResponse: ListUsuarioResponse, SessionId: string) => void,
+    deleteUser: (idUsuario: string, listUsuarioResponse: ListUsuarioResponse, SessionId: string ) => void,
     listuser: (SessionId: string) => void
 }
 
@@ -33,5 +34,6 @@ export const initialState: props = {
         usuarios: []
     },
     createUser(){},
-    listuser(){}
+    listuser(){},
+    deleteUser(){}
 }

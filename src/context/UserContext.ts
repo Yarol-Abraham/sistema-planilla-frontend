@@ -5,6 +5,7 @@ const UserContext = createContext<props>({
     usuarioResponse: initialState.usuarioResponse,
     listUsuarioResponse: initialState.listUsuarioResponse,
     createUser() {},
+    deleteUser(){},
     listuser(){}
 });
 
