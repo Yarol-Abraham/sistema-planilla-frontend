@@ -7,7 +7,7 @@ import CreateModal from "../../components/Modulo/Modal";
 import { ConfirmModal } from "../../components/modals/ConfirmModal";
 
 // models
-import { DataColumModulo } from "../../models/dataTable/DataTable";
+import { DataColumModulo } from "../../models/dataTable/DataTableColumns";
 import { MODE_ACTION } from "../../models/user/CreateModal";
 
 

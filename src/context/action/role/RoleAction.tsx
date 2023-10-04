@@ -6,7 +6,7 @@ import { initialState } from "../../models/role/roleProps";
 import { Role, RoleListResponse, RoleResponse } from "../../models/role/role";
 import  request, { sendSessionIdAuthorization } from "../../../config/axios";
 import { SUCCESS } from "../../../utils/Methods";
-import { ROLE_FAIL, ROLE_LIST_FAIL, ROLE_LIST_SUCCESS, ROLE_SUCCESS } from "../../types/role/roleTypes";
+import { GET_ROLE, ROLE_FAIL, ROLE_LIST_FAIL, ROLE_LIST_SUCCESS, ROLE_SUCCESS } from "../../types/role/roleTypes";
 
 interface props {
     children: ReactNode
@@ -104,9 +104,36 @@ const RoleAction: React.FC<props> = function(props)
         }
     }
 
+    const getRole = function (idRole: number) 
+    {
+        dispatch({
+            type: GET_ROLE,
+            payload: {
+                idRole 
+            }
+        })
+    }
+
+    const updateRole = function() 
+    {
+        let roleResponse: RoleResponse = initialState.roleResponse;
+
+        try 
+        {
+
+        }
+        catch(error)
+        {
+            console.log("error en: RoleAction.updateRole() : " + error);
+
+
+        }
+    }  
+
     return (
         <RoleContext.Provider
             value={{
+                role: state.role,
                 roleResponse: state.roleResponse,
                 roleListResponse: state.roleListResponse,
                 createRol,

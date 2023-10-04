@@ -92,13 +92,27 @@ const AuthenticationAction: React.FC<props> = (props: props)  =>
 
             if(sessionInformationResponse.strResponseCode === "00")
             {
-                localStorage.setItem("sessionInfomation", JSON.stringify(sessionInformationResponse));
-                dispatch({
-                    type: SESSIONINFORMATION_SUCCESS,
-                    payload: {
-                        sessionInformationResponse
-                    }
-                });
+
+                if(sessionInformationResponse.listRoles.length > 0)
+                {    
+                    localStorage.setItem("sessionInfomation", JSON.stringify(sessionInformationResponse));
+                    dispatch({
+                        type: SESSIONINFORMATION_SUCCESS,
+                        payload: {
+                            sessionInformationResponse
+                        }
+                    });
+                }
+                else {
+                    sessionInformationResponse.strResponseCode = "-1";
+                    sessionInformationResponse.strResponseMessage = "ROL NO DEFINIDO, todavia no tienes un rol asignado, consulta a soporte@tec.com";
+                    dispatch({
+                        type: SESSIONINFORMATION_FAIL,
+                        payload: {
+                            sessionInformationResponse
+                        }
+                    });
+                }
             }
     
         } catch (error) {

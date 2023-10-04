@@ -10,12 +10,12 @@ import CreateModal from "../../components/user/Modal";
 import { ConfirmModal } from "../../components/modals/ConfirmModal";
 
 // models
-import { DataColum } from "../../models/dataTable/DataTable";
+import { DataColumUser } from "../../models/dataTable/DataTableColumns";
 import { MODE_ACTION } from "../../models/user/CreateModal";
 import { useLocation } from "react-router-dom";
 
 
-type TableHeader = TableColumn<DataColum>[];
+type TableHeader = TableColumn<DataColumUser>[];
 
 const ListData: FunctionComponent<{}> = () => 
 {

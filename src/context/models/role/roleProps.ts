@@ -1,6 +1,7 @@
 import { Role, RoleListResponse, RoleResponse} from "./role";
 
 export interface props {
+    role: Role,
     roleResponse: RoleResponse,
     roleListResponse: RoleListResponse,
     createRol: (role: Role, roleListResponse: RoleListResponse, sessionId: string) => void,
@@ -8,6 +9,10 @@ export interface props {
 }
 
 export const initialState: props = { 
+    role: {
+        idRole: 0,
+        nombre: ""
+    },
     roleListResponse: {
         strResponseCode: "",
         strResponseMessage: "",

@@ -3,7 +3,6 @@ export enum MODE_ACTION {
     UPDATE = 'UPDATE'
 }
 
-
 export interface ICreateModal {
     isOpen: boolean;
     toggleF: Function;

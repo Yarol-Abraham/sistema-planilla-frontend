@@ -33,9 +33,7 @@ const CreateModal: FunctionComponent<ICreateModal> = (props) => {
 
     return (
         <Modal isOpen={isOpen} toggle={() => toggleF()} className="modal-lg">
-            <ModalHeader toggle={() => toggleF()}>
-                {mode === MODE_ACTION.CREATE ? 'Nuevo' : 'Actualizar'}
-            </ModalHeader>
+            <ModalHeader toggle={() => toggleF()}>{mode === MODE_ACTION.CREATE ? 'Nuevo' : 'Actualizar'} </ModalHeader>
 
             <Formik
                 initialValues={{ idRole: 1, nombre: '' }}
@@ -57,16 +55,7 @@ const CreateModal: FunctionComponent<ICreateModal> = (props) => {
                             setMessage({ code:resultcreate.strResponseCode, message: resultcreate.strResponseMessage });
                         }, 1000)
 
-
-                        setTimeout(()=> {
-                            
-                            if(resultcreate.strResponseCode == SUCCESS)
-                            {
-                              toggleF();
-                            }
-                           
-                        }, 3000)
-                                
+                        setTimeout(()=>{ if(resultcreate.strResponseCode == SUCCESS) toggleF(); }, 3000);                                
                     }
                 }}
                 validationSchema={

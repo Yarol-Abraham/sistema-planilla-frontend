@@ -1,4 +1,4 @@
-export interface DataColum {
+export interface DataColumUser {
     nombre: string
     apellido: string
     correoElectronico: string

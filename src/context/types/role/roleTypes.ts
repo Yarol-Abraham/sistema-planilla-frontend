@@ -1,11 +1,13 @@
-import { RoleListResponse, RoleResponse } from "../../models/role/role";
+import { Role, RoleListResponse, RoleResponse } from "../../models/role/role";
 
 export const ROLE_SUCCESS = "ROLE_SUCCESS";
 export const ROLE_FAIL = "ROLE_FAIL";
 
 export const ROLE_LIST_SUCCESS = "ROLE_LIST_SUCCESS";
 export const ROLE_LIST_FAIL = "ROLE_LIST_FAIL";
- 
+
+export const GET_ROLE = "GET_ROLE";
+
 export type ACTION = | 
     {
         type: "ROLE_SUCCESS",
@@ -32,3 +34,11 @@ export type ACTION = |
             roleListResponse: RoleListResponse
         }
     }
+    |
+    {
+        type: "GET_ROLE",
+        payload: {
+            idRole: number
+        }
+    }
+

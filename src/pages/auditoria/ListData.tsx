@@ -6,7 +6,7 @@ import CreateModal from "../../components/auditoria/Modal";
 import { ConfirmModal } from "../../components/modals/ConfirmModal";
 
 // models
-import { DataColumBitacora } from "../../models/dataTable/DataTable";
+import { DataColumBitacora } from "../../models/dataTable/DataTableColumns";
 import { MODE_ACTION } from "../../models/auditoria/CreateModal";
 
 

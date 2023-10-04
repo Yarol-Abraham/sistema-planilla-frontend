@@ -1,10 +1,9 @@
+import { Role } from "../../models/role/role";
 import { props } from "../../models/role/roleProps";
-import { ACTION, ROLE_FAIL, ROLE_LIST_FAIL, ROLE_LIST_SUCCESS, ROLE_SUCCESS } from "../../types/role/roleTypes";
-
+import { ACTION, GET_ROLE, ROLE_FAIL, ROLE_LIST_FAIL, ROLE_LIST_SUCCESS, ROLE_SUCCESS } from "../../types/role/roleTypes";
 
 const RoleRedcucer: React.Reducer<props, ACTION> = (state: props, action:ACTION)=> 
 {
-
     switch (action.type) 
     {
         case ROLE_SUCCESS:
@@ -25,6 +24,14 @@ const RoleRedcucer: React.Reducer<props, ACTION> = (state: props, action:ACTION)
             return {
                 ...state,
                 roleListResponse: action.payload.roleListResponse
+            }
+
+        case GET_ROLE:
+            let roleFilter = state.roleListResponse.roles.filter( role => role.idRole == action.payload.idRole);
+            let role: Role = roleFilter.length > 0 ? roleFilter[0] : { idRole: 0, nombre: "" };
+            return {
+                ...state,
+                role
             }
 
         default:

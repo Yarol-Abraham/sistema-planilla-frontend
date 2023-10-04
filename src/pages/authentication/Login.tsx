@@ -64,14 +64,11 @@ export default function Login()
             selectRole(sessionInformationResponse.listRoles[0].idRole);
             navigate("/");
           }
-          else{
-            setMessageResponse("ROL NO DEFINIDO, todavia no tienes un rol asignado, consulta a soporte@tec.com");
-            setTimeout(()=>setMessageResponse(""), 4000);
-          }
         }
       }
       else{
         setMessageResponse(sessionInformationResponse.strResponseMessage);
+        setTimeout(()=>setMessageResponse(""), 5000);
       }
     }, 2000)
     

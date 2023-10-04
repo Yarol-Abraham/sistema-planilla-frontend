@@ -68,10 +68,10 @@ const UserAction: React.FC<props> = function(props)
             sendSessionIdAuthorization(request, SessionId);
             const sendRequest = await request.delete("/tec/user/delete/"+idUsuario);
             usuarioResponse = sendRequest.data;
-            // listUsuarioResponse.usuarios = [ ...listUsuarioResponse.usuarios, usuarioResponse.entUsuario  ]
-            listUsuarioResponse.usuarios =  listUsuarioResponse.usuarios.map( el => el.idUsuario == usuarioResponse.entUsuario.idUsuario ? usuarioResponse.entUsuario : el );
             if(usuarioResponse.strResponseCode == SUCCESS)
             {
+                listUsuarioResponse.usuarios =  listUsuarioResponse.usuarios.map( el => el.idUsuario == usuarioResponse.entUsuario.idUsuario ? usuarioResponse.entUsuario : el );
+          
                 dispatch({
                     type: DISABLE_USER,
                     payload: {

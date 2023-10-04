@@ -50,7 +50,6 @@ const Layout: React.FunctionComponent<ILayoutProps> = (props:ILayoutProps) => {
     const getRole = function()
     {
         let role = sessionInformationResponse.listRoles?.filter(el =>  el.idRole == sessionInformationResponse.intRoleSelect );
-      
         if(role.length > 0)
         {
             setRole(role[0].nombre);
