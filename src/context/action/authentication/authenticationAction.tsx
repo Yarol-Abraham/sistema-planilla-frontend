@@ -174,7 +174,7 @@ const AuthenticationAction: React.FC<props> = (props: props)  =>
         }
         catch(error)
         {
-            console.log(error);
+            console.log("perfil: ", error);
         }
     }
 

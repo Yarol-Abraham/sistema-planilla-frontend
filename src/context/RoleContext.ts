@@ -6,7 +6,9 @@ const RoleContext = createContext<props>({
     roleResponse: initialState.roleResponse,
     roleListResponse: initialState.roleListResponse,
     createRol(){},
-    getRols() {},
+    getRols(){},
+    getRole(){},
+    updateRole(){}
 });
 
 export default RoleContext;

@@ -1,11 +1,18 @@
+import { ReactNode } from "react";
 import { Role, RoleListResponse, RoleResponse} from "./role";
+
+export interface propsAction {
+    children: ReactNode
+}
 
 export interface props {
     role: Role,
     roleResponse: RoleResponse,
     roleListResponse: RoleListResponse,
     createRol: (role: Role, roleListResponse: RoleListResponse, sessionId: string) => void,
-    getRols: (sessionId: string)=> void
+    getRols: (sessionId: string)=> void,
+    getRole: (idRole: number) => void,
+    updateRole: (role: Role, roleListResponse: RoleListResponse, sessionId: string) => void
 }
 
 export const initialState: props = { 
@@ -27,5 +34,7 @@ export const initialState: props = {
         }
     } ,
     createRol(){},
-    getRols() {}
+    getRols(){},
+    getRole(){},
+    updateRole(){}
 }

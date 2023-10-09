@@ -15,28 +15,36 @@ import {
 import { Formik } from 'formik';
 import * as Yup from "yup";
 
+
+// models
 import { ICreateModal, MODE_ACTION } from "../../models/role/CreateModal";
+
+// hooks
 import { useAuthenticationAction } from "../../hooks/UseAuthentication";
 import { useRole } from "../../hooks/UseRole";
+
+// models
 import { Role } from "../../context/models/role/role";
+
+// utils
 import { SUCCESS } from "../../utils/Methods";
 
 const CreateModal: FunctionComponent<ICreateModal> = (props) => {
     
-    const  { createRol, roleListResponse } = useRole();
+    const  { role, createRol, updateRole, roleListResponse } = useRole();
     const { sessionInformationResponse  } = useAuthenticationAction();
 
     const [ message, setMessage ] = useState({ code: "", message: "" });
     const [submited, setSubmitted] = useState(false);
-
-    const { isOpen, toggleF, mode } = props;
+    
+    const { isOpen, toggleF, mode, data } = props;
 
     return (
         <Modal isOpen={isOpen} toggle={() => toggleF()} className="modal-lg">
             <ModalHeader toggle={() => toggleF()}>{mode === MODE_ACTION.CREATE ? 'Nuevo' : 'Actualizar'} </ModalHeader>
 
             <Formik
-                initialValues={{ idRole: 1, nombre: '' }}
+                initialValues={{ idRole: data?.idRole || 0, nombre: data?.nombre || "" }}
                 onSubmit={async (values) => {
                     
                     setSubmitted(true);
@@ -56,6 +64,22 @@ const CreateModal: FunctionComponent<ICreateModal> = (props) => {
                         }, 1000)
 
                         setTimeout(()=>{ if(resultcreate.strResponseCode == SUCCESS) toggleF(); }, 3000);                                
+                    }
+                    else if (mode == MODE_ACTION.UPDATE) 
+                    {
+                        const rol: Role = {
+                            idRole: role.idRole,
+                            nombre: values.nombre
+                        }
+                        
+                        let resultupdate: any = await updateRole(rol, roleListResponse, sessionInformationResponse.strSessionId);
+
+                        setTimeout(()=> {  
+                            setSubmitted(false); 
+                            setMessage({ code:resultupdate.strResponseCode, message: resultupdate.strResponseMessage });
+                        }, 1000);
+
+                        setTimeout(()=>{ if(resultupdate.strResponseCode == SUCCESS) toggleF(); }, 3000); 
                     }
                 }}
                 validationSchema={

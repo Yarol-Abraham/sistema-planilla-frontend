@@ -1,4 +1,4 @@
-import { Role, RoleListResponse, RoleResponse } from "../../models/role/role";
+import { RoleListResponse, RoleResponse } from "../../models/role/role";
 
 export const ROLE_SUCCESS = "ROLE_SUCCESS";
 export const ROLE_FAIL = "ROLE_FAIL";
@@ -7,6 +7,11 @@ export const ROLE_LIST_SUCCESS = "ROLE_LIST_SUCCESS";
 export const ROLE_LIST_FAIL = "ROLE_LIST_FAIL";
 
 export const GET_ROLE = "GET_ROLE";
+
+export const METHOD = {
+    create: "CREATE",
+    update: "UPDATE"
+};
 
 export type ACTION = | 
     {

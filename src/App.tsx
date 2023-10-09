@@ -18,7 +18,7 @@ function App() {
             <Route path='/auth/*' element={ <AuthenticationRouter /> } />
             <Route path='/user/*' element={ <UserRouter /> } />
             <Route path='/' element={<Dashboard />} />
-            <Route path='/role' element={<RoleRouter />} />
+            <Route path='/role/*' element={<RoleRouter />} />
             <Route path='/perfil' element={<PerfilRouter />} />
             <Route path='/auditoria' element={<AuditoriaRouter />} />
             <Route path='/modulo' element={<ModuloRouter />} />

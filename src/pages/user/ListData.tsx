@@ -76,7 +76,6 @@ const ListData: FunctionComponent<{}> = () =>
                                             className={`btn btn-info d-flex justify-content-center mx-1 ${ opcion.cambio > 0 ? "" : "d-none" } ` }
                                             onClick={ ()=> 
                                             {
-                                                console.log(data);
                                                 toggle();
                                             }}
                                         >
@@ -86,7 +85,6 @@ const ListData: FunctionComponent<{}> = () =>
                                             disabled={ data.idStatusUsuario === 3 ? true : false }
                                             onClick={ ()=> 
                                             {
-                                                console.log(data);
                                                 setId(data.idUsuario);
                                                 toggleConfirm();
                                             }}
@@ -97,7 +95,6 @@ const ListData: FunctionComponent<{}> = () =>
                                             disabled={ data.idStatusUsuario === 1 ? true : false }
                                             onClick={ ()=> 
                                             {
-                                                console.log(data);
                                                 toggleConfirm();
                                             }}
                                             className={`btn btn-success mx-1 ${ opcion.alta > 0 ? "" : "d-none" }  `}>

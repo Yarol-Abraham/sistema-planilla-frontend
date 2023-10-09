@@ -26,9 +26,10 @@ const UserAction: React.FC<props> = function(props)
             sendSessionIdAuthorization(request, SessionId);
             const sendRequest = await request.post("/tec/user/create", usuarioCreate);
             usuarioResponse =  sendRequest.data;
-            listUsuarioResponse.usuarios = [ ...listUsuarioResponse.usuarios, usuarioResponse.entUsuario];
+           
             if(usuarioResponse.strResponseCode == SUCCESS)
             {
+                listUsuarioResponse.usuarios = [ ...listUsuarioResponse.usuarios, usuarioResponse.entUsuario];
                 dispatch({
                     type: CREATE_SUCCESS,
                     payload: {

@@ -1,134 +1,88 @@
-import { ReactNode, useReducer } from "react";
+import { useReducer } from "react";
 
 import RoleContext from "../../RoleContext";
 import RoleRedcucer from "../../reducer/role/roleReducer";
-import { initialState } from "../../models/role/roleProps";
+import { propsAction, initialState } from "../../models/role/roleProps";
 import { Role, RoleListResponse, RoleResponse } from "../../models/role/role";
 import  request, { sendSessionIdAuthorization } from "../../../config/axios";
 import { SUCCESS } from "../../../utils/Methods";
-import { GET_ROLE, ROLE_FAIL, ROLE_LIST_FAIL, ROLE_LIST_SUCCESS, ROLE_SUCCESS } from "../../types/role/roleTypes";
+import { GET_ROLE, ROLE_FAIL, ROLE_LIST_FAIL, ROLE_LIST_SUCCESS, ROLE_SUCCESS, METHOD } from "../../types/role/roleTypes";
 
-interface props {
-    children: ReactNode
-}
-
-const RoleAction: React.FC<props> = function(props)
+const RoleAction: React.FC<propsAction> = function(props)
 {
 
     const [ state, dispatch] = useReducer(RoleRedcucer, initialState);
 
-    const createRol = async function(role: Role, roleListResponse: RoleListResponse, sessionId: string) : Promise<RoleResponse> 
+    const factoryCreateAndUpdate = async function(role: Role, roleListResponse: RoleListResponse, sessionId: string, method: string)
     {
         let roleResponse: RoleResponse = initialState.roleResponse;
 
         try {
             sendSessionIdAuthorization(request, sessionId);
-            const sendRequest = await request.post("/tec/role/create", role);
+            const sendRequest = await request.post("/tec/role/"+method.toLowerCase(), role);
             roleResponse = sendRequest.data;
 
-            roleListResponse.roles = [ ...roleListResponse.roles , role ];
+            if(roleResponse.strResponseCode != SUCCESS)
+                throw new Error(roleResponse.strResponseMessage);
 
-            if(roleResponse.strResponseCode == SUCCESS)
+            if(method == METHOD.create)
             {
-                dispatch({
-                    type: ROLE_SUCCESS,
-                    payload: {
-                        roleResponse,
-                        roleListResponse
-                    }
-                });
+                roleListResponse.roles = [ ...roleListResponse.roles, roleResponse.role ];
             }
-            else 
+            else if(method == METHOD.update) 
             {
-                dispatch({
-                    type: ROLE_FAIL,
-                    payload: {
-                        roleResponse
-                    }
-                });
+                roleListResponse.roles = roleListResponse.roles.map( role => role.idRole == roleResponse.role.idRole ? roleResponse.role: role  );
             }
+
+            dispatch({ type: ROLE_SUCCESS,  payload: { roleResponse, roleListResponse } });
 
         }
         catch(error)
         {
             console.log(error);
-            
-            dispatch({
-                type: ROLE_FAIL,
-                payload: {
-                    roleResponse
-                }
-            });
+            dispatch({ type: ROLE_FAIL, payload: { roleResponse }});
+
         }
         return roleResponse;
+
+    }
+
+    const createRol = async function(role: Role, roleListResponse: RoleListResponse, sessionId: string) : Promise<RoleResponse> 
+    {
+       return factoryCreateAndUpdate(role, roleListResponse, sessionId, METHOD.create);
     }   
 
     const getRols = async function(sessionId: string)
     {
         let roleListResponse: RoleListResponse = initialState.roleListResponse;
+        
         try
         {
             sendSessionIdAuthorization(request, sessionId);
             const sendRequest = await request.get("/tec/role/list");
             roleListResponse = sendRequest.data;
             
-            if(roleListResponse.strResponseCode == SUCCESS)
-            {
-                dispatch({
-                    type: ROLE_LIST_SUCCESS,
-                    payload: {
-                        roleListResponse
-                    }
-                });
-            }
-            else 
-            {
-                dispatch({
-                    type: ROLE_LIST_FAIL,
-                    payload: {
-                        roleListResponse
-                    }
-                });
-            }
-
+            if(roleListResponse.strResponseCode != SUCCESS)
+                throw new Error(roleListResponse.strResponseMessage);
+            
+            dispatch({ type: ROLE_LIST_SUCCESS, payload: { roleListResponse } });
+            
         }
-        catch(error)
+        catch(error: any)
         {
-            console.log(error);
-            dispatch({
-                type: ROLE_LIST_FAIL,
-                payload: {
-                    roleListResponse
-                }
-            });
+            dispatch({ type: ROLE_LIST_FAIL, payload: { roleListResponse } });
         }
     }
 
-    const getRole = function (idRole: number) 
+    const getRole = function (idRole: number)
     {
-        dispatch({
-            type: GET_ROLE,
-            payload: {
-                idRole 
-            }
-        })
+        dispatch({ type: GET_ROLE, payload: { idRole } });
     }
-
-    const updateRole = function() 
+     
+    const updateRole = async function(role: Role, roleListResponse: RoleListResponse, sessionId: string) : Promise<RoleResponse> 
     {
-        let roleResponse: RoleResponse = initialState.roleResponse;
-
-        try 
-        {
-
-        }
-        catch(error)
-        {
-            console.log("error en: RoleAction.updateRole() : " + error);
-
-
-        }
-    }  
+        return factoryCreateAndUpdate(role, roleListResponse, sessionId, METHOD.update);
+    }
 
     return (
         <RoleContext.Provider
@@ -137,7 +91,9 @@ const RoleAction: React.FC<props> = function(props)
                 roleResponse: state.roleResponse,
                 roleListResponse: state.roleListResponse,
                 createRol,
-                getRols
+                getRols,
+                getRole,
+                updateRole
             }}
         >
             {props.children}
