@@ -3,7 +3,6 @@ import { Button } from "reactstrap";
 import { EntModulo } from "../context/models/menu/menu";
 import { TableHeaderRole } from "../models/dataTable/DataTableHeaders";
 
-
 export const getHeaders = function(modulos: EntModulo[], actions: Array<Function>) : TableHeaderRole
 {
     let opciones: TableHeaderRole = [];
@@ -27,9 +26,9 @@ export const getHeaders = function(modulos: EntModulo[], actions: Array<Function
                                         <Button 
                                             className={`btn btn-info d-flex justify-content-center mx-1 ${ opcion.cambio > 0 ? "" : "d-none" } ` }
                                             onClick={ ()=> {
-                                             executeFn(actions, 0, +data.idRole);
-                                             executeFn(actions, 1);
-                                            } }
+                                                executeFn(actions, 0, +data.idRole);
+                                                executeFn(actions, 1);
+                                            }}
                                         >
                                             <i className="ri-edit-box-line p-0"></i>
                                         </Button>),

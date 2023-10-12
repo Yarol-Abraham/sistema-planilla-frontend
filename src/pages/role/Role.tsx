@@ -10,6 +10,12 @@ import {
     Input, 
     Row } from 'reactstrap';
 
+import DateRangePicker from '@wojtekmaj/react-daterange-picker';
+
+// css date
+import '@wojtekmaj/react-daterange-picker/dist/DateRangePicker.css';
+import 'react-calendar/dist/Calendar.css';
+
 // components
 import Layout from '../../layout/Layout';
 import CreateModal from "../../components/role/Modal";
@@ -17,16 +23,7 @@ import ListData from './ListData';
 
 // interfaces
 import { MODE_ACTION } from '../../models/role/CreateModal';
-
-import DateRangePicker from '@wojtekmaj/react-daterange-picker';
-
-import '@wojtekmaj/react-daterange-picker/dist/DateRangePicker.css';
-import 'react-calendar/dist/Calendar.css';
-
-type ValuePiece = Date | null;
-
-type Value = ValuePiece | [ValuePiece, ValuePiece];
-
+import { Value } from '../../models/input/dataPicker';
 
 export default function Role() 
 {

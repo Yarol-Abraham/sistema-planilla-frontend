@@ -1,5 +1,5 @@
-import { FunctionComponent, useEffect, useState } from "react";
-import { Button, Card, CardBody, Col } from "reactstrap";
+import { FunctionComponent, useEffect, useState,  useRef } from "react";
+import { Alert, Card, CardBody, Col } from "reactstrap";
 import DataTable, { TableColumn  } from 'react-data-table-component';
 
 import { useMenuAction } from "../../hooks/UseMenu";
@@ -12,17 +12,18 @@ import { ConfirmModal } from "../../components/modals/ConfirmModal";
 // models
 import { DataColumUser } from "../../models/dataTable/DataTableColumns";
 import { MODE_ACTION } from "../../models/user/CreateModal";
-import { useLocation } from "react-router-dom";
+import { getHeaders } from "../../services/User";
+import { CSSTransition } from "react-transition-group";
+import { SUCCESS } from "../../utils/Methods";
 
 
 type TableHeader = TableColumn<DataColumUser>[];
 
 const ListData: FunctionComponent<{}> = () => 
 {
-    const location = useLocation();
-
+  
     const { menuResponse } = useMenuAction();
-    const {  listuser, deleteUser, listUsuarioResponse } = useUser();
+    const {  usuario, listuser, deleteUser, updateUpUser, listUsuarioResponse, getUser } = useUser();
     const { sessionInformationResponse } = useAuthenticationAction();
 
     const [ headers, setHeaders ] = useState<TableHeader>([]);
@@ -32,99 +33,49 @@ const ListData: FunctionComponent<{}> = () =>
     const [ isOpen, setisOpen ] = useState(false);
     const toggle = ()=> setisOpen(!isOpen);
 
-    const [ isOpenConfirm, setisOpenConfirm ] = useState(false);
-    const toggleConfirm = ()=> setisOpenConfirm(!isOpenConfirm);
+    const [ isOpenConfirmDelete, setisOpenConfirmDelete ] = useState(false);
+    const toggleConfirmDelete = ()=> setisOpenConfirmDelete(!isOpenConfirmDelete);
     
+    const [ isOpenConfirmUpdate, setisOpenConfirmUpdate ] = useState(false);
+    const toggleConfirmUpdate = ()=> setisOpenConfirmUpdate(!isOpenConfirmUpdate);
+    
+    const [showMessage, setShowMessage] = useState(false);
+    const nodeRef = useRef(null);
+
     useEffect(()=> {
-        menuResponse.entModulo.map( modulo => {
-        modulo.menu.map(
-            menu => {
-                menu.opciones.map(
-                    opcion => {
-                        if( opcion.pagina == location.pathname.replace("/", ""))
-                        {
-                            setHeaders([
-                                {
-                                    name: "Nombre",
-                                    selector: row => row.nombre,
-                                    sortable: true,
-                                },
-                                {
-                                    name: "Apellido",
-                                    selector:  row => row.apellido,
-                                    sortable: true,
-                                },
-                                {
-                                    name: "Correo",
-                                    selector: row => row.correoElectronico,
-                                    sortable: true,
-                                },
-                                {
-                                    name: "Telefono",
-                                    selector:  row => row.telefonoMovil,
-                                    sortable: true,
-                                },
-                                {
-                                    name: "Sucursal",
-                                    selector:  row => row.nombreSucursal,
-                                    sortable: true,
-                                },
-                                {
-                                    name: "Acciones",
-                                    cell: (data) => (<>
-                                        <Button 
-                                            className={`btn btn-info d-flex justify-content-center mx-1 ${ opcion.cambio > 0 ? "" : "d-none" } ` }
-                                            onClick={ ()=> 
-                                            {
-                                                toggle();
-                                            }}
-                                        >
-                                            <i className="ri-edit-box-line p-0"></i>
-                                        </Button>
-                                        <Button
-                                            disabled={ data.idStatusUsuario === 3 ? true : false }
-                                            onClick={ ()=> 
-                                            {
-                                                setId(data.idUsuario);
-                                                toggleConfirm();
-                                            }}
-                                            className={`btn btn-danger mx-1 ${ opcion.baja > 0 ? "" : "d-none" } `}>
-                                                <i className="ri-close-circle-line p-0"></i>
-                                        </Button>
-                                        <Button 
-                                            disabled={ data.idStatusUsuario === 1 ? true : false }
-                                            onClick={ ()=> 
-                                            {
-                                                toggleConfirm();
-                                            }}
-                                            className={`btn btn-success mx-1 ${ opcion.alta > 0 ? "" : "d-none" }  `}>
-                                                <i className="ri-checkbox-circle-line p-0"></i>
-                                        </Button>
-                                        
-                                    </>),
-                                    sortable: true
-                                },
-                            
-                            ]);
-                            if(sessionInformationResponse.strSessionId != "")
-                            {
-                                listuser(sessionInformationResponse.strSessionId);
-                            }
-                        }
-                    }
-                )
-            }
-        )
-       });
-    }, [menuResponse.entModulo])
+        if(menuResponse.entModulo.length > 0) setHeaders(getHeaders(menuResponse.entModulo, [toggle, setId, toggleConfirmUpdate, toggleConfirmDelete, getUser, setShowMessage]));
+     }, [menuResponse.entModulo])
 
     useEffect(()=> {
         if(listUsuarioResponse.usuarios.length > 0 ) setData(listUsuarioResponse.usuarios);
     }, [listUsuarioResponse.usuarios])
 
+    useEffect(()=> { 
+        if(sessionInformationResponse.strSessionId != "") listuser(sessionInformationResponse.strSessionId);
+    }, [sessionInformationResponse.strSessionId])
+
     return (
        <>
         <Col sm="12">
+        <CSSTransition
+              in={showMessage}
+              timeout={1500}
+              nodeRef={nodeRef}
+              classNames="alert"
+              unmountOnExit
+        >
+             <Alert  
+                color="success" 
+                className={"text-white bg-success"}
+            >
+                <div className="iq-alert-icon">
+                    <i className="ri-alert-line" />
+                </div>
+                <div className="iq-alert-text">Se realizado la acción <b>correctamente</b>!</div>
+            </Alert>
+
+        </CSSTransition>
+           
             <Card className="iq-card">
                 <CardBody className="iq-card-body">
                     <DataTable
@@ -136,8 +87,17 @@ const ListData: FunctionComponent<{}> = () =>
                 </CardBody>
             </Card>
         </Col>
-        <CreateModal isOpen={isOpen} toggleF={toggle} mode={MODE_ACTION.UPDATE} />
-        <ConfirmModal isOpen={isOpenConfirm} toggleF={toggleConfirm} action={() => deleteUser(id, listUsuarioResponse, sessionInformationResponse.strSessionId)} />
+        <CreateModal isOpen={isOpen} toggleF={toggle} mode={MODE_ACTION.UPDATE} data={usuario} />
+        <ConfirmModal isOpen={isOpenConfirmDelete} toggleF={toggleConfirmDelete} action={ async () => {
+            let result: any = await deleteUser(id, listUsuarioResponse, sessionInformationResponse.strSessionId);
+            if(result == SUCCESS) setShowMessage(true);
+            setTimeout(()=> setShowMessage(false), 2500);
+        }} />
+        <ConfirmModal isOpen={isOpenConfirmUpdate} toggleF={toggleConfirmUpdate} action={ async () => {
+             let result: any = await updateUpUser(id, listUsuarioResponse, sessionInformationResponse.strSessionId);
+             if(result == SUCCESS) setShowMessage(true);
+             setTimeout(()=> setShowMessage(false), 2500);
+       }} />
        </>
     );
 

@@ -9,6 +9,12 @@ import {
     Container, 
     Input, 
     Row } from 'reactstrap';
+    
+import DateRangePicker from '@wojtekmaj/react-daterange-picker';
+
+// css calendar
+import '@wojtekmaj/react-daterange-picker/dist/DateRangePicker.css';
+import 'react-calendar/dist/Calendar.css';
 
 // components
 import Layout from '../../layout/Layout';
@@ -17,23 +23,13 @@ import ListData from './ListData';
 
 // interfaces
 import { MODE_ACTION } from '../../models/user/CreateModal';
-
-import DateRangePicker from '@wojtekmaj/react-daterange-picker';
-
-import '@wojtekmaj/react-daterange-picker/dist/DateRangePicker.css';
-import 'react-calendar/dist/Calendar.css';
-
-type ValuePiece = Date | null;
-
-type Value = ValuePiece | [ValuePiece, ValuePiece];
-
+import { Value } from '../../models/input/dataPicker';
 
 export default function User() 
 {
 
     const [ isOpen, setisOpen ] = useState(false);
     const toggle = ()=> setisOpen(!isOpen);
-
        
     const [value, onChange] = useState<Value>([new Date(), new Date()]);
 
@@ -42,6 +38,7 @@ export default function User()
             <Layout>
                 <Container>
                     <Row>
+                    
                         <Col lg={12}>
                             <Card className={"iq-card custom-zindex"}>
                                 <CardHeader>
@@ -93,6 +90,7 @@ export default function User()
                         <CreateModal isOpen={isOpen} toggleF={toggle} mode={MODE_ACTION.CREATE} />
                     </Row>
                     <Row>
+                        
                         <ListData />
                     </Row>
                 </Container>    

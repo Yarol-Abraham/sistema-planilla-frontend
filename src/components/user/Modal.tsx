@@ -11,14 +11,14 @@ import { SUCCESS } from "../../utils/Methods";
 
 const CreateModal: FunctionComponent<ICreateModal> = (props) => {
 
-    const { createUser, listUsuarioResponse } = useUser();
+    const { createUser, updateUser, listUsuarioResponse } = useUser();
     const { sessionInformationResponse  } = useAuthenticationAction();
 
     const [ message, setMessage ] = useState({ code: "", message: "" });
     const [ confirm, setConfirm ] = useState(false);
     const [submited, setSubmitted] = useState(false);
     
-    const { isOpen, toggleF, mode } = props;
+    const { isOpen, toggleF, mode, data } = props;
     
     const handleSubmitConfirm = function () 
     {
@@ -57,20 +57,19 @@ const CreateModal: FunctionComponent<ICreateModal> = (props) => {
 
                         <Formik
                             initialValues={{
-                                idUsuario: 'caliz',
-                                nombre: 'isaac',
-                                apellido: 'caliz',
-                                idGenero: '1',
-                                correoElectronico: 'caliz@tec.com',
-                                telefonoMovil: '44887744',
-                                fechaNacimiento: '2000-10-30',
-                                idSucursal: '1'
+                                idUsuario: data?.idUsuario || "",
+                                nombre: data?.nombre || "",
+                                apellido: data?.apellido || "",
+                                idGenero: data?.idGenero || "0",
+                                correoElectronico: data?.correoElectronico || "",
+                                telefonoMovil: data?.telefonoMovil || "",
+                                fechaNacimiento: data?.fechaNacimiento || "",
+                                idSucursal: data?.idSucursal || "0"
                             }}
                             onSubmit={async (values) => {
                                 console.log("guardando datos " + JSON.stringify(values, null, 2));
-                                
+                                let result: any;
                                 setSubmitted(true);
-                                
                                 
                                 if(mode == MODE_ACTION.CREATE)
                                 {
@@ -87,24 +86,33 @@ const CreateModal: FunctionComponent<ICreateModal> = (props) => {
                                         fotografia: ""
                                     }
                                     
-                                    let resultcreate: any = await createUser(usuarioCreate, listUsuarioResponse, sessionInformationResponse.strSessionId);
-                                
-                                    setTimeout(()=> {
-                                        setMessage({ code:resultcreate.strResponseCode, message: resultcreate.strResponseMessage });
-                                        
-                                        if(resultcreate.strResponseCode == SUCCESS)
-                                        {
-                                          //  toggleF();
-                                            setConfirm(true);
-                                        }
-                                        else{
-                                            setConfirm(true);
-                                        }
-                                        //toggleF();
-                                        setSubmitted(false);
-                                    }, 3000)
+                                     result = await createUser(usuarioCreate, listUsuarioResponse, sessionInformationResponse.strSessionId);
                                 }
+                                else if(mode == MODE_ACTION.UPDATE)
+                                {
+                                    const usuarioUpdate: UsuarioCreate = {
+                                        nombre: values.nombre,
+                                        apellido: values.apellido,
+                                        correoElectronico: values.correoElectronico,
+                                        telefonoMovil: values.telefonoMovil,
+                                        fechaNacimiento: values.fechaNacimiento,
+                                        idGenero: +values.idGenero,
+                                        idUsuario: values.idUsuario,
+                                        idSucursal: +values.idSucursal,
+                                        requiereCambiarPassword: 0,
+                                        fotografia: ""
+                                    };
+                                    
+                                    result = await updateUser(usuarioUpdate, listUsuarioResponse, sessionInformationResponse.strSessionId);
+                                }
+                                
+                                setTimeout(()=> {
+                                    setMessage({ code:result.strResponseCode, message: result.strResponseMessage });
+                                    
+                                    setConfirm(true);
+                                    setSubmitted(false);
 
+                                }, 3000)
 
                             }}
                             validationSchema={
