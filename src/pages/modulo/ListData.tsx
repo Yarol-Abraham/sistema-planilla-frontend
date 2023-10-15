@@ -46,24 +46,7 @@ const ListData: FunctionComponent<{}> = () =>
                 >
                         <i className="ri-edit-box-line p-0"></i>
                 </Button>
-                <Button 
-                    onClick={ ()=> 
-                    {
-                        console.log(data);
-                        toggleConfirm();
-                    }}
-                    className="btn btn-danger mx-1">
-                        <i className="ri-close-circle-line p-0"></i>
-                </Button>
-                <Button 
-                    onClick={ ()=> 
-                    {
-                        console.log(data);
-                        toggleConfirm();
-                    }}
-                    className="btn btn-wargin mx-1">
-                        <i className="ri-checkbox-circle-line p-0"></i>
-                </Button>
+               
                 
             </>),
             sortable: true
@@ -106,7 +89,7 @@ const ListData: FunctionComponent<{}> = () =>
             </Card>
         </Col>
         <CreateModal isOpen={isOpen} toggleF={toggle} mode={MODE_ACTION.UPDATE} />
-        <ConfirmModal isOpen={isOpenConfirm} toggleF={toggleConfirm} />
+        <ConfirmModal isOpen={isOpenConfirm} toggleF={toggleConfirm} action={undefined} />
        </>
     );
 

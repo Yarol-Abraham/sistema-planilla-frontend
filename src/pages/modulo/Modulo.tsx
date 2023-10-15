@@ -36,9 +36,6 @@ export default function modulo()
        
     const [value, onChange] = useState<Value>([new Date(), new Date()]);
 
-
-
-
     return (
         <>
             <Layout>
