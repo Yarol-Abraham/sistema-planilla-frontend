@@ -4,10 +4,11 @@ import { AuthenticationContext } from "../../AuthenticationContext";
 import AuthenticationReducer from "../../reducer/authentication/authenticationReducer";
 import { initialState } from "../../models/sessionInformation/sessionInformationProps";
 import { SessionInformationCredential, SessionInformationResponse, UsuarioResponse } from "../../models/sessionInformation/sessionInformation";
-import { GET_PERFIL, SESSIONINFORMATION_FAIL, SESSIONINFORMATION_SUCCESS, UPDATE_PERFIL } from "../../types/authentication/authenticationType";
+import { GET_PERFIL, SEND_EMAIL_ERROR, SEND_EMAIL_SUCCESS, SESSIONINFORMATION_FAIL, SESSIONINFORMATION_SUCCESS, UPDATE_PERFIL } from "../../types/authentication/authenticationType";
 import { SUCCESS, ERROR } from "../../../utils/Methods";
 
 import request, { sendSessionIdAuthorization } from "../../../config/axios";
+import { EmailResponse } from "../../models/email/email";
 
 interface props {
     children: ReactNode
@@ -16,7 +17,7 @@ interface props {
 const AuthenticationAction: React.FC<props> = (props: props)  =>
 {
     const [state, dispatch] = useReducer(AuthenticationReducer, initialState);
-    const IGNORE_PATH: Array<String> = [ '/auth/login' ];
+    const IGNORE_PATH: Array<String> = [ '/auth/login', '/auth/recover-password', '/auth/confirm-password', '/auth/confirm-mail' ];
 
     // redireccionar a login
     const redireccionar = function()
@@ -210,6 +211,66 @@ const AuthenticationAction: React.FC<props> = (props: props)  =>
         return getResponse;
     } 
 
+    const sendEmailResetPassword =async function(email: string)
+    {
+        let emailResponse: EmailResponse = initialState.emailResponse;
+        try{
+            let sendRequest = await request.get(`/tec/email/recovery/password?email=${email}`);
+            emailResponse = sendRequest.data;
+
+            if(emailResponse.strResponseCode != SUCCESS)
+                throw new Error(emailResponse.strResponseMessage);
+
+            dispatch({ type: SEND_EMAIL_SUCCESS, payload: { emailResponse }});
+        }
+        catch(err)
+        {
+            console.log("Error: " + err);
+            dispatch({ type: SEND_EMAIL_ERROR, payload: { emailResponse }})
+        }
+        return emailResponse;
+    }
+
+    const getValidateNewPassword = async function(token: string) 
+    {
+        let emailResponse: EmailResponse = initialState.emailResponse;
+        try{
+            let sendRequest = await request.get(`/tec/email/alert/newpassword?token=${token}`);
+            emailResponse = sendRequest.data;
+
+            if(emailResponse.strResponseCode != SUCCESS)
+                throw new Error(emailResponse.strResponseMessage);
+
+            dispatch({ type: SEND_EMAIL_SUCCESS, payload: { emailResponse }});
+        }
+        catch(err)
+        {
+            console.log("Error: " + err);
+            dispatch({ type: SEND_EMAIL_ERROR, payload: { emailResponse }})
+        }
+        return emailResponse;
+    }
+
+    const getConfirmPassword = async (token: string) => 
+    {
+        let emailResponse: EmailResponse = initialState.emailResponse;
+        try{
+            let sendRequest = await request.get(`/tec/email/confirm/newpassword?token=${token}`);
+            emailResponse = sendRequest.data;
+
+            if(emailResponse.strResponseCode != SUCCESS)
+                throw new Error(emailResponse.strResponseMessage);
+
+            dispatch({ type: SEND_EMAIL_SUCCESS, payload: { emailResponse }});
+        }
+        catch(err)
+        {
+            console.log("Error: " + err);
+            dispatch({ type: SEND_EMAIL_ERROR, payload: { emailResponse }})
+        }
+        return emailResponse;
+    }
+
     useEffect(()=> {
         if(!IGNORE_PATH.includes(window.location.pathname)) getSessionInformation();
     }, [])
@@ -217,6 +278,7 @@ const AuthenticationAction: React.FC<props> = (props: props)  =>
     return (
         <AuthenticationContext.Provider
             value={{
+                emailResponse: state.emailResponse,
                 sessionInformationResponse: state.sessionInformationResponse,
                 sessionInformationCredential: state.sessionInformationCredential,
                 usuarioResponse: state.usuarioResponse,
@@ -224,7 +286,10 @@ const AuthenticationAction: React.FC<props> = (props: props)  =>
                 postSessionInformation,
                 selectRole,
                 getInformationPerfil,
-                updatePerfil
+                updatePerfil,
+                sendEmailResetPassword,
+                getValidateNewPassword,
+                getConfirmPassword
             }}
         >
             {props.children}

@@ -2,6 +2,7 @@ import { createContext } from "react";
 import { props, initialState } from './models/sessionInformation/sessionInformationProps';
 
 export const AuthenticationContext = createContext<props>({
+    emailResponse: initialState.emailResponse,
     sessionInformationResponse: initialState.sessionInformationResponse,
     sessionInformationCredential: initialState.sessionInformationCredential,
     usuarioResponse: initialState.usuarioResponse,
@@ -9,5 +10,8 @@ export const AuthenticationContext = createContext<props>({
     postSessionInformation(){},
     selectRole(){ return "" },
     getInformationPerfil(){},
-    updatePerfil(){}
+    updatePerfil(){},
+    sendEmailResetPassword(){},
+    getValidateNewPassword(){},
+    getConfirmPassword(){}
 });

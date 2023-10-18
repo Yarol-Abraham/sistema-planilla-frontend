@@ -2,7 +2,6 @@
 import { Button } from "reactstrap";
 import { EntModulo } from "../context/models/menu/menu";
 import { TableHeaderUser } from "../models/dataTable/DataTableHeaders";
-import { SUCCESS } from "../utils/Methods";
 
 export const getHeaders = function(modulos: EntModulo[], actions: Array<Function>) : TableHeaderUser
 {
