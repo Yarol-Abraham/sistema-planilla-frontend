@@ -8,6 +8,7 @@ import AuditoriaRouter from './routes/auditoria/AuditoriaRouter';
 import ModuloRouter from './routes/modulo/ModuloRouter';
 import PerfilRouter from './routes/perfil/PerfilRouter';
 import CambioRouter from './routes/cambio/CambioRouter';
+import OptionRouter from './routes/option/OptionRouter';
 
 function App() {
 
@@ -19,6 +20,7 @@ function App() {
             <Route path='/user/*' element={ <UserRouter /> } />
             <Route path='/' element={<Dashboard />} />
             <Route path='/role/*' element={<RoleRouter />} />
+            <Route path='/option/*' element={<OptionRouter />} />
             <Route path='/perfil' element={<PerfilRouter />} />
             <Route path='/auditoria' element={<AuditoriaRouter />} />
             <Route path='/modulo' element={<ModuloRouter />} />

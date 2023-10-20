@@ -1,6 +1,6 @@
 import { Role } from "../../models/role/role";
 import { props } from "../../models/role/roleProps";
-import { ACTION, ADD_ROLE, ADD_ROLE_ERROR, GET_ROLE, GET_ROLES_ASSIGN, GET_ROLES_ASSIGN_ERROR, GET_ROLES_UNASSIGNED, GET_ROLES_UNASSIGNED_ERROR, ROLE_FAIL, ROLE_LIST_FAIL, ROLE_LIST_SUCCESS, ROLE_SUCCESS } from "../../types/role/roleTypes";
+import { ACTION, ADD_ROLE, ADD_ROLE_ERROR, GET_OPTIONS_ASSIGN, GET_OPTIONS_ASSIGN_ERROR, GET_OPTIONS_UNASSIGN, GET_OPTIONS_UNASSIGN_ERROR, GET_ROLE, GET_ROLES_ASSIGN, GET_ROLES_ASSIGN_ERROR, GET_ROLES_UNASSIGNED, GET_ROLES_UNASSIGNED_ERROR, ROLE_FAIL, ROLE_LIST_FAIL, ROLE_LIST_SUCCESS, ROLE_SUCCESS } from "../../types/role/roleTypes";
 
 const RoleRedcucer: React.Reducer<props, ACTION> = (state: props, action:ACTION)=> 
 {
@@ -54,7 +54,20 @@ const RoleRedcucer: React.Reducer<props, ACTION> = (state: props, action:ACTION)
                 ...state,
                 roleGrantResponse: action.payload.roleGrantResponse
             }
-            
+        
+        case GET_OPTIONS_UNASSIGN:
+        case GET_OPTIONS_UNASSIGN_ERROR:
+            return {
+                ...state,
+                roleListOptionUnassignResponse: action.payload.roleListOptionUnassignResponse
+            }
+
+        case GET_OPTIONS_ASSIGN:
+        case GET_OPTIONS_ASSIGN_ERROR:
+            return {
+                ...state,
+                roleListOptionAssignResponse: action.payload.roleListOptionAssignResponse
+            }
 
         default:
             return state;

@@ -125,26 +125,6 @@ export default function Permission()
                                 </Input>
                             </FormGroup>
                             
-                            {/* <Row className='d-flex justify-content-center'>
-                                <Col lg={11} className='mb-2'>
-                                    <h5>Acciones</h5>
-                                </Col>
-                                <Col lg={11} className='d-flex flex-row'>
-                                   <FormGroup className=''>
-                                        <Input type="checkbox" className="border border-info custom-control-input mx-2" />
-                                        <Label className="custom-control-label fw-bold" htmlFor={"alta"}>Dar de Alta</Label>  
-                                    </FormGroup>  
-                                    <FormGroup  className='mx-2'>
-                                        <Input type="checkbox" className="border border-info custom-control-input mx-2" />
-                                        <Label className="custom-control-label fw-bold" htmlFor={"baja"}>Dar de Baja</Label>  
-                                    </FormGroup>  
-                                    <FormGroup >
-                                        <Input type="checkbox" className="border border-info custom-control-input mx-2" />
-                                        <Label className="custom-control-label fw-bold" htmlFor={"cambio"}>Actualizar</Label>  
-                                    </FormGroup>   
-                                </Col>
-                            </Row> */}
-
                             <Row className='d-flex justify-content-center mb-4'>
 
                                 <Col className='shadow p-0 m-0'  style={{ height: '30rem' }} lg={5}>

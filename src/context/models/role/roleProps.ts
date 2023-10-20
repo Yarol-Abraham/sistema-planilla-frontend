@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { Role, RoleAssign, RoleListResponse, RoleResponse} from "./role";
+import { OptionAssign, OptionListResponse, OptionResponse, Role, RoleAssign, RoleListResponse, RoleResponse} from "./role";
 
 export interface propsAction {
     children: ReactNode
@@ -12,6 +12,9 @@ export interface props {
     roleListResponse: RoleListResponse,
     roleListAssignResponse: RoleListResponse,
     roleListUnassignResponse: RoleListResponse,
+    roleListOptionUnassignResponse: OptionListResponse,
+    roleListOptionAssignResponse: OptionListResponse,
+    roleOptionResponse: OptionResponse,
     createRol: (role: Role, roleListResponse: RoleListResponse, sessionId: string) => void,
     getRols: (sessionId: string)=> void,
     getRole: (idRole: number) => void,
@@ -20,6 +23,10 @@ export interface props {
     getUnassignedRoles:(idUsuario: string,sessionId: string) => void,
     grantPermission: (roles: Array<RoleAssign>, sessionId: string) => void,
     notgrantPermission: (roles: Array<RoleAssign>, sessionId: string) => void,
+    getOptionUnassigned: (idRole: string,sessionId: string) => void,
+    getOptionAssigned: (idRole: string,sessionId: string) => void,
+    grantOptionPermission: (rolesOptionAssign: Array<OptionAssign>, sessionId: string) => void,
+    notgranOptionPermission: (rolesOptionAssign: Array<OptionAssign>, sessionId: string) => void
 }
 
 export const initialState: props = { 
@@ -46,6 +53,16 @@ export const initialState: props = {
         strResponseMessage: "",
         roles: []
     },
+    roleListOptionUnassignResponse: {
+      strResponseCode: "",
+      strResponseMessage: "",
+      option: []
+    },
+    roleListOptionAssignResponse: {
+        strResponseCode: "",
+        strResponseMessage: "",
+        option: []
+    },
     roleListResponse: {
         strResponseCode: "",
         strResponseMessage: "",
@@ -58,7 +75,22 @@ export const initialState: props = {
             idRole: 0,
             nombre: ""
         }
-    } ,
+    }, 
+    roleOptionResponse: {
+        strResponseCode: "",
+        strResponseMessage: "",
+        option: {
+            idOpcion:" 0",
+            nombre: "",
+            ordenMenu:" 0",
+            pagina: "",
+            alta:" 0",
+            baja:" 0",
+            cambio:" 0",
+            imprimir:" 0",
+            exportar:" 0"
+        }
+    },
     createRol(){},
     getRols(){},
     getRole(){},
@@ -66,5 +98,9 @@ export const initialState: props = {
     getAssignedRoles(){},
     getUnassignedRoles(){},
     grantPermission(){},
-    notgrantPermission(){}
+    notgrantPermission(){},
+    getOptionUnassigned(){},
+    getOptionAssigned(){},
+    grantOptionPermission(){},
+    notgranOptionPermission(){}
 }
