@@ -14,3 +14,9 @@ export interface Role {
     idRole: number;
 	nombre: string;
 } 
+
+export interface RoleAssign {
+    idRole: string
+    idUsuario: string
+  }
+  

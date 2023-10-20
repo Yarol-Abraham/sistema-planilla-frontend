@@ -79,7 +79,7 @@ const CreateModal: FunctionComponent<ICreateModal> = (props) => {
                             setMessage({ code:resultupdate.strResponseCode, message: resultupdate.strResponseMessage });
                         }, 1000);
 
-                        setTimeout(()=>{ if(resultupdate.strResponseCode == SUCCESS) toggleF(); }, 3000); 
+                        setTimeout(()=>{ if(resultupdate.strResponseCode == SUCCESS) toggleF(); }, 2000); 
                     }
                 }}
                 validationSchema={

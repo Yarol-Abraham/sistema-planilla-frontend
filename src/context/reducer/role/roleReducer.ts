@@ -1,6 +1,6 @@
 import { Role } from "../../models/role/role";
 import { props } from "../../models/role/roleProps";
-import { ACTION, GET_ROLE, ROLE_FAIL, ROLE_LIST_FAIL, ROLE_LIST_SUCCESS, ROLE_SUCCESS } from "../../types/role/roleTypes";
+import { ACTION, ADD_ROLE, ADD_ROLE_ERROR, GET_ROLE, GET_ROLES_ASSIGN, GET_ROLES_ASSIGN_ERROR, GET_ROLES_UNASSIGNED, GET_ROLES_UNASSIGNED_ERROR, ROLE_FAIL, ROLE_LIST_FAIL, ROLE_LIST_SUCCESS, ROLE_SUCCESS } from "../../types/role/roleTypes";
 
 const RoleRedcucer: React.Reducer<props, ACTION> = (state: props, action:ACTION)=> 
 {
@@ -33,6 +33,28 @@ const RoleRedcucer: React.Reducer<props, ACTION> = (state: props, action:ACTION)
                 ...state,
                 role
             }
+        
+        case GET_ROLES_ASSIGN_ERROR:
+        case GET_ROLES_ASSIGN:
+            return {
+                ...state,
+                roleListAssignResponse: action.payload.roleListAssignResponse
+            }
+
+        case GET_ROLES_UNASSIGNED_ERROR:
+        case GET_ROLES_UNASSIGNED:
+            return {
+                ...state,
+                roleListUnassignResponse: action.payload.roleListUnassignResponse
+            }
+        
+        case ADD_ROLE:
+        case ADD_ROLE_ERROR:
+            return {
+                ...state,
+                roleGrantResponse: action.payload.roleGrantResponse
+            }
+            
 
         default:
             return state;
