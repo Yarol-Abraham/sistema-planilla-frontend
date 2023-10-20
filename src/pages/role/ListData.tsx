@@ -25,7 +25,7 @@ const ListData: FunctionComponent<{}> = () =>
     const [ data, setData ] = useState<any>([])
  
     const [ isOpen, setisOpen ] = useState(false);
-    const toggle = ()=> setisOpen(!isOpen);
+    const toggle = () => setisOpen(!isOpen);
 
     useEffect(()=> {
        if(menuResponse.entModulo.length > 0) setHeaders(getHeaders(menuResponse.entModulo, [getRole, toggle]));

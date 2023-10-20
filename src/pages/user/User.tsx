@@ -23,7 +23,7 @@ import ListData from './ListData';
 
 // interfaces
 import { MODE_ACTION } from '../../models/user/CreateModal';
-import { Value } from '../../models/input/dataPicker';
+import { Value } from '../../models/input/DataPicker';
 
 export default function User() 
 {

@@ -10,6 +10,7 @@ const RoleContext = createContext<props>({
     roleListUnassignResponse: initialState.roleListUnassignResponse,
     roleListOptionUnassignResponse: initialState.roleListOptionUnassignResponse,
     roleListOptionAssignResponse: initialState.roleListOptionAssignResponse,
+    roleOptionResponse: initialState.roleOptionResponse,
     createRol(){},
     getRols(){},
     getRole(){},
@@ -19,7 +20,9 @@ const RoleContext = createContext<props>({
     grantPermission(){},
     notgrantPermission(){},
     getOptionUnassigned(){},
-    getOptionAssigned(){}
+    getOptionAssigned(){},
+    grantOptionPermission(){},
+    notgranOptionPermission(){}
 });
 
 export default RoleContext;

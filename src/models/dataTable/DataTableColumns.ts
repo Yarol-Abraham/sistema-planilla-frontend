@@ -29,3 +29,18 @@ export interface DataColumRol {
     idRole: number,
     nombre: string    
 };
+
+export interface DataColumnPersona {
+    idPersona: number
+    nombre: string
+    apellido: string
+    fechaNacimiento: string
+    idGenero: number
+    genero: string
+    direccion: string
+    telefono: string
+    correoElectronico: string
+    estadoCivil: string
+    idEstadoCivil: number
+  }
+  
