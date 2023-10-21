@@ -6,9 +6,11 @@ import Layout from "../../layout/Layout";
 import { CreateModal } from '../../components/people/Modal';
 
 import { MODE_ACTION } from '../../models/people/CreateModal';
-
+import { usePeople } from '../../hooks/UsePeople';
 export default function People() 
 {
+    const { peopleResponse  } = usePeople();
+
     const [ isOpen, setisOpen ] = useState(false);
     const toggle = ()=> setisOpen(!isOpen);
 
@@ -44,7 +46,7 @@ export default function People()
                             </CardBody>
                         </Card>       
                     </Col>
-                    <CreateModal isOpen={isOpen} toggleF={toggle} mode={MODE_ACTION.CREATE}  />
+                    <CreateModal isOpen={isOpen} toggleF={toggle} mode={MODE_ACTION.CREATE}  data={peopleResponse} />
                 </Row>
 
                 <Row>

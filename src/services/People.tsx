@@ -55,7 +55,7 @@ export const getHeaders = function(modulos: EntModulo[], actions: Array<Function
                                             <Button 
                                                 className={`btn btn-info d-flex justify-content-center mx-1 ${ opcion.cambio > 0 ? "" : "d-none" } ` }
                                                 onClick={ ()=> {
-                                                //  executeFn(actions, 0, +data.idRole);
+                                                    executeFn(actions, 1, +data.idPersona);
                                                     executeFn(actions, 0);
                                                 }}
                                             >

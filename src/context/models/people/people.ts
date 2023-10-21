@@ -17,4 +17,21 @@ export interface PeopleListResponse {
     estadoCivil: string
     idEstadoCivil: number
   }
+
+  export interface PersonaResponse {
+    strResponseCode: string
+    strResponseMessage: string
+    persona: Persona
+  }
+  
+export interface PeopleCreate {
+  nombre: string
+  apellido: string
+  fechaNacimiento: string
+  idGenero: number
+  direccion: string
+  telefono: string
+  correoElectronico: string
+  idEstadoCivil: number
+}
   

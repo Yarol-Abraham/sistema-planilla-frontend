@@ -16,7 +16,7 @@ export const ListaData: FunctionComponent<{}> = () =>
 {
     const { sessionInformationResponse } = useAuthenticationAction();
     const { menuResponse } = useMenuAction();
-    const { getPeoples, peopleListResponse } = usePeople();
+    const { getPeoples, peopleListResponse, people, getPeople } = usePeople();
 
     const [ headers, setHeaders ] = useState<TableHeaderPeople>([]);
     const [ data, setData ] = useState<any>([]);
@@ -25,7 +25,7 @@ export const ListaData: FunctionComponent<{}> = () =>
     const toggle = ()=> setisOpen(!isOpen);
 
     useEffect(()=> {
-        if(menuResponse.entModulo.length > 0) setHeaders(getHeaders(menuResponse.entModulo, [toggle]));
+        if(menuResponse.entModulo.length > 0) setHeaders(getHeaders(menuResponse.entModulo, [toggle, getPeople]));
      }, [menuResponse.entModulo])
 
      useEffect(()=> {
@@ -50,7 +50,7 @@ export const ListaData: FunctionComponent<{}> = () =>
                 </CardBody>
             </Card>
         </Col>
-        <CreateModal isOpen={isOpen} toggleF={toggle} mode={MODE_ACTION.UPDATE} data={{}} />
+        <CreateModal isOpen={isOpen} toggleF={toggle} mode={MODE_ACTION.UPDATE} data={people} />
     </>
     );
 }
