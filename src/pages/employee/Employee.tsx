@@ -1,15 +1,24 @@
 import { useState } from 'react';
 
 import { Card, CardBody, CardHeader, Col, Container, Row } from "reactstrap";
-import { ListaData } from "../../components/people/ListData";
-import Layout from "../../layout/Layout";
-import { CreateModal } from '../../components/people/Modal';
 
-import { MODE_ACTION } from '../../models/people/CreateModal';
+import Layout from "../../layout/Layout";
+import { ListaData } from '../../components/employee/ListaData';
+
+import { CreateModal } from '../../components/employee/CreateModal';
+import { MODE_ACTION } from '../../models/employee/CreateModal';
+
+import { useEmployee } from '../../hooks/UseEmployee';
+import { useAuthenticationAction } from '../../hooks/UseAuthentication';
 import { usePeople } from '../../hooks/UsePeople';
-export default function People() 
+import { useDepartmentContext } from '../../hooks/UseDepartment';
+
+export default function Employee() 
 {
-    const { people  } = usePeople();
+    const { sessionInformationResponse } = useAuthenticationAction();
+    const { employee } = useEmployee();
+    const { getPeoples } = usePeople();
+    const { getDepartments } = useDepartmentContext();
 
     const [ isOpen, setisOpen ] = useState(false);
     const toggle = ()=> setisOpen(!isOpen);
@@ -21,7 +30,7 @@ export default function People()
                     <Col lg={12}>
                         <Card className={"iq-card"}>
                             <CardHeader>
-                                <h3 className='mx-2 fw-bold'>Personas</h3>
+                                <h3 className='mx-2 fw-bold'>Empleados</h3>
                             </CardHeader>
 
                             <CardBody className={"iq-card-body "}>
@@ -37,8 +46,12 @@ export default function People()
                                     
                                     <Col  className={"d-flex justify-content-end mb-2 mb-md-0 col-12 col-md-4 col-lg-6"}>
                                         <div className=" todo-notification d-flex align-items-center">
-                                        <button type="button" className="btn iq-bg-primary iq-waves-effect btn-lg" onClick={toggle} >
-                                                Agregar Persona
+                                        <button type="button" className="btn iq-bg-primary iq-waves-effect btn-lg" onClick={()=> {
+                                            toggle();
+                                            getPeoples(sessionInformationResponse.strSessionId);
+                                            getDepartments(sessionInformationResponse.strSessionId);
+                                        }} >
+                                                Agregar Empleado
                                             </button>
                                         </div>
                                     </Col>
@@ -46,7 +59,7 @@ export default function People()
                             </CardBody>
                         </Card>       
                     </Col>
-                    <CreateModal isOpen={isOpen} toggleF={toggle} mode={MODE_ACTION.CREATE}  data={people} />
+                    <CreateModal isOpen={isOpen} toggleF={toggle} mode={MODE_ACTION.CREATE}  data={employee} />
                 </Row>
 
                 <Row>

@@ -1,3 +1,5 @@
+import { Empleado } from "../../context/models/employee/employee";
+
 export interface DataColumUser {
     nombre: string
     apellido: string
@@ -44,3 +46,6 @@ export interface DataColumnPersona {
     idEstadoCivil: number
   }
   
+  export interface DataColumnEmployee  extends Empleado{
+
+  }

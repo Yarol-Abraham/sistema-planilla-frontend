@@ -60,7 +60,7 @@ export const CreateModal: FunctionComponent<ICreateModal> = (props) =>
                             setMessage({ code:resultcreate.strResponseCode, message: resultcreate.strResponseMessage });
                         }, 1000)
 
-                        setTimeout(()=>{ if(resultcreate.strResponseCode == SUCCESS) toggleF(); }, 3000);        
+                        setTimeout(()=>{ if(resultcreate.strResponseCode == SUCCESS) toggleF(); }, 2000);        
                     }
                     else if(mode == MODE_ACTION.UPDATE)
                     {
@@ -83,7 +83,11 @@ export const CreateModal: FunctionComponent<ICreateModal> = (props) =>
                             setMessage({ code: resultUpdate.strResponseCode, message: resultUpdate.strResponseMessage });
                         }, 1000);
 
-                        setTimeout(()=>{ if(resultUpdate.strResponseCode == SUCCESS) toggleF(); }, 2000); 
+                        setTimeout(()=>{ if(resultUpdate.strResponseCode == SUCCESS) 
+                        {
+                            setMessage({ code: "", message: "" });
+                            toggleF();
+                        } }, 2000); 
                     }
 
                 }}
@@ -160,11 +164,11 @@ export const CreateModal: FunctionComponent<ICreateModal> = (props) =>
                                     <FormGroup>
                                         <Label for="Apellido" className='mb-1'>Fecha Nacimiento</Label>
                                         <Input
-                                            type="text"
+                                            type="date"
                                             id="fechaNacimiento"
                                             className={`form-control ${errors.fechaNacimiento ? 'is-invalid' : ''}`}
                                             required
-                                            placeholder="Ingresar Apellido"
+                                            placeholder="Ingresar Fecha de Nacimiento"
                                             onChange={handleChange}
                                             onBlur={handleBlur}
                                             value={values.fechaNacimiento}

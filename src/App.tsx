@@ -10,6 +10,7 @@ import PerfilRouter from './routes/perfil/PerfilRouter';
 import CambioRouter from './routes/cambio/CambioRouter';
 import OptionRouter from './routes/option/OptionRouter';
 import PeopleRouter from './routes/people/PeopleRouter';
+import EmployeeRouter from './routes/employee/EmployeRouter';
 
 function App() {
 
@@ -27,6 +28,7 @@ function App() {
             <Route path='/modulo' element={<ModuloRouter />} />
             <Route path='/cambio' element={<CambioRouter />} />
             <Route  path='/people/*' element={<PeopleRouter />} />
+            <Route  path='/employee/*' element={<EmployeeRouter />} />
             <Route path='*' element={<NotFound /> } />
         </Routes>
       </BrowserRouter>
