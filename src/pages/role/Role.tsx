@@ -23,14 +23,11 @@ import ListData from './ListData';
 
 // interfaces
 import { MODE_ACTION } from '../../models/role/CreateModal';
-import { Value } from '../../models/input/DataPicker';
 
 export default function Role() 
 {
     const [ isOpen, setisOpen ] = useState(false);
     const toggle = ()=> setisOpen(!isOpen);
-
-    const [value, onChange] = useState<Value>([new Date(), new Date()]);
 
     return (
         <>
@@ -61,25 +58,7 @@ export default function Role()
                                             </div>
                                         </Col>
                                     </div>
-                                    <div className='d-flex justify-content-first   flex-wrap flex-column-reverse flex-xl-row '>
-                                        <Col className=' col-12 col-md-8 col-lg-5 col-xl-3 mb-0 mx-xl-1'>
-                                                <DateRangePicker className={"form-control"} onChange={onChange} value={value} />
-                                        </Col>
-
-                                        <Col  className=' col-12 col-md-8 col-lg-5 col-xl-2 mb-0'>
-                                            <Input type={"select"} className="form-control" style={{height: '41px' }} >
-                                                <option defaultValue={""}>Seleccionar Estado</option>
-                                                <option>0-18</option>
-                                                <option>18-26</option>
-                                                <option>26-46</option>
-                                                <option>46-60</option>
-                                                <option>Above 60</option>
-                                            </Input>
-                                        </Col>
-                                        <Col>
-                                            <Button color="dark" className='mx-2'   style={{height: '41px' }} >Filtrar</Button>{' '}
-                                        </Col>
-                                    </div>
+                                  
                                 </CardBody>
                             </Card>
                         </Col>

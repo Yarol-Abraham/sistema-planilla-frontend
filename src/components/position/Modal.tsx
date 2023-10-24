@@ -1,4 +1,4 @@
-import { FunctionComponent, useState } from "react";
+import { FunctionComponent, useState, useEffect } from "react";
 import {
     Button,
     Col,
@@ -15,48 +15,68 @@ import {
 import { Formik } from 'formik';
 import * as Yup from "yup";
 
+import SelectSearch from 'react-select-search';
 
 // models
-import { ICreateModal, MODE_ACTION } from "../../models/role/CreateModal";
+import { ICreateModal, MODE_ACTION } from "../../models/position/CreateModal";
 
-// hooks
+// hookss
 import { useAuthenticationAction } from "../../hooks/UseAuthentication";
-import { useRole } from "../../hooks/UseRole";
-
-// models
-import { Role } from "../../context/models/role/role";
+import { usePositionContext } from "../../hooks/UsePosition";
 
 // utils
 import { SUCCESS } from "../../utils/Methods";
+import { useDepartmentContext } from "../../hooks/UseDepartment";
 
 const CreateModal: FunctionComponent<ICreateModal> = (props) => {
     
-    const  { role, createRol, updateRole, roleListResponse } = useRole();
+    const  { createPosition,updatePosition,  positionListResponse } = usePositionContext();
     const { sessionInformationResponse  } = useAuthenticationAction();
+    const { departmentListResponse, getDepartments } = useDepartmentContext();
+
+    const [ departamentos, setDepartamentos ] = useState<any[]>([]);
+    const [ departamentoId, setDepartamentoId ] = useState(0);
 
     const [ message, setMessage ] = useState({ code: "", message: "" });
     const [submited, setSubmitted] = useState(false);
     
     const { isOpen, toggleF, mode, data } = props;
 
+    useEffect(()=> {
+        if(sessionInformationResponse.strSessionId != "") getDepartments(sessionInformationResponse.strSessionId );
+    }, [sessionInformationResponse.strSessionId])
+
+    useEffect(()=> {
+
+        if(departmentListResponse.departamentos.length > 0)
+        {
+           let searchDepartment = departmentListResponse.departamentos.map((departamento) => {
+                return {
+                    value: departamento.idDepartamento,
+                    name: `${departamento.nombre}`
+                }
+            });
+            setDepartamentos(searchDepartment);
+        }
+    }, [departmentListResponse.departamentos])
+
     return (
         <Modal isOpen={isOpen} toggle={() => toggleF()} className="modal-lg">
             <ModalHeader toggle={() => toggleF()}>{mode === MODE_ACTION.CREATE ? 'Nuevo' : 'Actualizar'} </ModalHeader>
 
             <Formik
-                initialValues={{ idRole: data?.idRole || 0, nombre: data?.nombre || "" }}
+                initialValues={{ idPuesto: data?.idPuesto || 0, nombre: data?.nombre || "", idDepartamento: data?.idDepartamento || 0 }}
                 onSubmit={async (values) => {
                     
                     setSubmitted(true);
-
+                   
                     if(mode == MODE_ACTION.CREATE)
                     {
-                        const rol: Role = {
-                            idRole: 0,
-                            nombre: values.nombre
-                        }
-                        
-                        let resultcreate: any = await createRol(rol, roleListResponse, sessionInformationResponse.strSessionId);
+                        const formatData = {
+                            nombre: values.nombre, 
+                            idDepartamento: departamentoId
+                           }   
+                        let resultcreate: any = await createPosition(formatData, positionListResponse, sessionInformationResponse.strSessionId);
 
                         setTimeout(()=> {  
                             setSubmitted(false); 
@@ -67,12 +87,14 @@ const CreateModal: FunctionComponent<ICreateModal> = (props) => {
                     }
                     else if (mode == MODE_ACTION.UPDATE) 
                     {
-                        const rol: Role = {
-                            idRole: role.idRole,
-                            nombre: values.nombre
-                        }
                         
-                        let resultupdate: any = await updateRole(rol, roleListResponse, sessionInformationResponse.strSessionId);
+                        const formatData = {
+                            idPuesto: values.idPuesto, 
+                            nombre: values.nombre, 
+                            idDepartamento: departamentoId
+                           }   
+                        
+                        let resultupdate: any = await updatePosition(formatData, positionListResponse, sessionInformationResponse.strSessionId);
 
                         setTimeout(()=> {  
                             setSubmitted(false); 
@@ -108,7 +130,6 @@ const CreateModal: FunctionComponent<ICreateModal> = (props) => {
                                 </Col>
 
                                 <Col></Col>
-                                <Col></Col>
 
                                 <Col md={6} >
                                     <FormGroup>
@@ -127,9 +148,23 @@ const CreateModal: FunctionComponent<ICreateModal> = (props) => {
                                         {errors.nombre && <div className="invalid-feedback">{errors.nombre}</div>}
                                     </FormGroup>
                                 </Col>
+
+                                <Col sm={12} md={12} lg={6}>
+                                    <FormGroup>
+                                        <Label for="Persona" className='mb-1'>Departamento</Label>
+                                        <SelectSearch 
+                                            id='idDepartamento'
+                                            search={true} 
+                                            options={departamentos} 
+                                            placeholder="Seleccionar Departamento" 
+                                            defaultValue={`${values.idDepartamento}`}
+                                            onChange={(id)=>setDepartamentoId(+id)}
+                                        />
+                                    </FormGroup>
+                                </Col>
+
                             </Row>
-                            <Col md={6} >
-                            </Col>
+                            
                         </ModalBody>
                         <ModalFooter>
                             <Button color="primary"  className={!submited ?  "" : "d-none"} type="submit">Guardar Cambios</Button>{' '}

@@ -46,6 +46,9 @@ export interface DataColumnPersona {
     idEstadoCivil: number
   }
   
-  export interface DataColumnEmployee  extends Empleado{
+  export interface DataColumnEmployee  extends Empleado{}
 
-  }
+  export interface DataColumnPosition {
+    idPuesto: number,
+    nombre: string
+  } 
