@@ -52,3 +52,9 @@ export interface DataColumnPersona {
     idPuesto: number,
     nombre: string
   } 
+
+export interface DataColumnDepartment {
+  idDepartamento: number,
+  nombre: string
+}
+

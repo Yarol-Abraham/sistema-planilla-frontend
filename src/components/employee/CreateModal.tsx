@@ -387,6 +387,7 @@ export const CreateModal: FunctionComponent<ICreateModal> = (props) =>
                                             onBlur={handleBlur}
                                             value={values.idStatusEmpleado}
                                             style={{ height: '40px' }}
+                                            disabled
                                         >
                                             <option value="">-- Seleccionar --</option>
                                             <option value="1">Activo</option>

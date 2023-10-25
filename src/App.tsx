@@ -12,6 +12,8 @@ import OptionRouter from './routes/option/OptionRouter';
 import PeopleRouter from './routes/people/PeopleRouter';
 import EmployeeRouter from './routes/employee/EmployeRouter';
 import PositionRouter from './routes/position/PositionRouter';
+import DepartmentRouter from './routes/department/DepartmentRouter';
+
 function App() {
 
   return (
@@ -30,6 +32,7 @@ function App() {
             <Route  path='/people/*' element={<PeopleRouter />} />
             <Route  path='/employee/*' element={<EmployeeRouter />} />
             <Route  path='/position/*' element={<PositionRouter />} />
+            <Route  path='/department/*' element={<DepartmentRouter />} />
             <Route path='*' element={<NotFound /> } />
         </Routes>
       </BrowserRouter>
