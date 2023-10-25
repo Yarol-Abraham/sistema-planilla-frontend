@@ -1,20 +1,12 @@
 
 import { useState } from 'react';
 import { 
-    Button,
     Card, 
     CardBody, 
     CardHeader, 
     Col, 
     Container, 
-    Input, 
     Row } from 'reactstrap';
-
-import DateRangePicker from '@wojtekmaj/react-daterange-picker';
-
-// css date
-import '@wojtekmaj/react-daterange-picker/dist/DateRangePicker.css';
-import 'react-calendar/dist/Calendar.css';
 
 // components
 import Layout from '../../layout/Layout';
