@@ -47,7 +47,6 @@ const CreateModal: FunctionComponent<ICreateModal> = (props) => {
                     handleChange,
                     handleBlur,
                     handleSubmit,
-                    isSubmitting
                 }) => (
                     <form noValidate onSubmit={handleSubmit}>
                         <ModalBody>

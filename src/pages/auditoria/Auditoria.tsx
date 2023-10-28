@@ -12,11 +12,8 @@ import {
 
 // components
 import Layout from '../../layout/Layout';
-import CreateModal from "../../components/auditoria/Modal";
 import ListData from './ListData';
 
-// interfaces
-import { MODE_ACTION } from '../../models/auditoria/CreateModal';
 
 import DateRangePicker from '@wojtekmaj/react-daterange-picker';
 
@@ -31,8 +28,8 @@ type Value = ValuePiece | [ValuePiece, ValuePiece];
 export default function auditoria() 
 {
 
-    const [ isOpen, setisOpen ] = useState(false);
-    const toggle = ()=> setisOpen(!isOpen);
+    //const [ isOpen, setisOpen ] = useState(false);
+    //const toggle = ()=> setisOpen(!isOpen);
 
        
     const [value, onChange] = useState<Value>([new Date(), new Date()]);

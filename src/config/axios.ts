@@ -1,7 +1,7 @@
 import axios, { AxiosInstance } from "axios";
 
 const request = axios.create({
-    baseURL: "http://localhost:8014"
+    baseURL: import.meta.env.VITE_API_URL
 });
 
 export function sendSessionIdAuthorization(request: AxiosInstance, token: string) : AxiosInstance

@@ -16,16 +16,18 @@ interface FormData {
   confirmPassword: string;
 }
 
-export default function Cambio() {
-  const [isOpen, setisOpen] = useState(false);
+export default function Cambio() 
+{
+  
   const [formData, setFormData] = useState<FormData>({
     currentPassword: '',
     newPassword: '',
     confirmPassword: '',
   });
   const [formErrors, setFormErrors] = useState<Partial<FormData>>({});
+  //const [isOpen, setisOpen] = useState(false);
 
-  const toggle = () => setisOpen(!isOpen);
+//  const toggle = () => setisOpen(!isOpen);
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement>

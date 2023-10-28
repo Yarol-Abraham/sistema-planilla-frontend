@@ -24,7 +24,6 @@ const CreateModal: FunctionComponent<ICreateModal> = (props)=> {
                 }
             >
                 {({
-                    values,
                     handleSubmit
                 }) => (
                     <form noValidate onSubmit={handleSubmit}>
