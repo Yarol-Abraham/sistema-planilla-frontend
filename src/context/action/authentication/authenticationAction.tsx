@@ -91,6 +91,7 @@ const AuthenticationAction: React.FC<props> = (props: props)  =>
             const sendRequest = await request.post("/auth/login", sessionInformationCredential, 
             {
                 headers: {
+                    'Access-Control-Allow-Origin': 'https://sistema-planilla-frontend.vercel.app',
                     "Content-Type": "application/json"                   
                 }
             });
