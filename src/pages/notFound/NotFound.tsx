@@ -12,9 +12,7 @@ export default function NotFound()
                     <h4 className={"mb-0"}>Oops! No encotramos la pagina que buscas.</h4>
                     <p>La página solicitada no existe.</p>
                      <NavLink to={"/"} className={"btn btn-primary mt-3"}>
-                        <i className={"ri-home-4-line"} /> Regresar
-                    </NavLink> 
-
+                        <i className={"ri-home-4-line"} /> Regresar</NavLink> 
                 </div>
             </Col>
         </Row>
