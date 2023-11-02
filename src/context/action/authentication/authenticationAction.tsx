@@ -88,7 +88,13 @@ const AuthenticationAction: React.FC<props> = (props: props)  =>
         let sessionInformationResponse: SessionInformationResponse = initialState.sessionInformationResponse;
         try {
             
-            const sendRequest = await request.post("auth/login", sessionInformationCredential);
+            const sendRequest = await request.post("/auth/login", sessionInformationCredential, 
+            {
+                headers: {
+                    "Content-Type": "application/json"                   
+                }
+            });
+
             sessionInformationResponse = sendRequest.data;
 
             if(sessionInformationResponse.strResponseCode === "00")
@@ -116,8 +122,11 @@ const AuthenticationAction: React.FC<props> = (props: props)  =>
                 }
             }
     
-        } catch (error) {
+        } catch (error: any) {
             console.log("error en: AuthenticationAction.postSessionInformation() " + error);
+            console.log("error en: AuthenticationAction.postSessionInformation() " + error.message);
+            console.log("error en: AuthenticationAction.postSessionInformation() " + error.response.status);
+            console.log("error en: AuthenticationAction.postSessionInformation() " + JSON.stringify(error.response, null, 2));
             sessionInformationResponse.strResponseCode = "-1";
             sessionInformationResponse.strResponseMessage = "LO SENTIMOS, SERVICIO NO DISPONIBLE";
             dispatch({
